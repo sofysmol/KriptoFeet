@@ -35,6 +35,7 @@ namespace KriptoFeet.DB
             _context.DataEventRecords.Add(dataEventRecord);
             _context.SaveChanges();
         }
+        //setup all
         public void UpdateDataEventRecord(long dataEventRecordId, DataEventRecord dataEventRecord)
         {
             _context.DataEventRecords.Update(dataEventRecord);
