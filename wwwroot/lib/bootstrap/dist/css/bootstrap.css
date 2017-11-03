@@ -1114,6 +1114,8 @@ figure {
 }
 img {
   vertical-align: middle;
+  max-width: 100%;
+  height: auto;
 }
 .img-responsive,
 .thumbnail > img,
@@ -3115,8 +3117,10 @@ fieldset[disabled] .btn-default.focus {
 }
 .btn-primary {
   color: #fff;
-  background-color: #337ab7;
-  border-color: #2e6da4;
+  background-color: #008db1;
+  border-color: #049cdb;
+  text-transform: uppercase; 
+  font-weight: bold;
 }
 .btn-primary:focus,
 .btn-primary.focus {
@@ -3136,6 +3140,7 @@ fieldset[disabled] .btn-default.focus {
   background-color: #286090;
   border-color: #204d74;
 }
+
 .btn-primary:active:hover,
 .btn-primary.active:hover,
 .open > .dropdown-toggle.btn-primary:hover,
@@ -3975,20 +3980,36 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
-}
+  background: #d6d6d6;
+  -webkit-transform: skewX(-30deg); /* Для Safari и Chrome */
+  -moz-transform: skewX(-30deg); /* Для Firefox */
+  -o-transform: skewX(-30deg); /* Для Opera */
+  -ms-transform: skewX(-30deg); /* Для IE */
+  transform: skewX(-30deg); /* CSS3 */
+  }
 .nav > li {
   position: relative;
   display: block;
+  background: #ffffff;
+  margin-right: 1px; 
+  color: #000;
+  font-weight: bold;
 }
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 10px 15px;
+  padding: 10px 10px;
+  -webkit-transform: skewX(30deg); /* Для Safari и Chrome */
+  -moz-transform: skewX(30deg); /* Для Firefox */
+  -o-transform: skewX(30deg); /* Для Opera */
+  -ms-transform: skewX(30deg); /* Для IE */
+  transform: skewX(30deg); /* CSS3 */
 }
 .nav > li > a:hover,
 .nav > li > a:focus {
-  text-decoration: none;
-  background-color: #eee;
+  /*text-decoration:none;*/
+  /*background-color: #eee;*/
+  color: #008db1;
 }
 .nav > li.disabled > a {
   color: #777;
@@ -4027,6 +4048,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   line-height: 1.42857143;
   border: 1px solid transparent;
   border-radius: 4px 4px 0 0;
+  color: #c0c0c0;
 }
 .nav-tabs > li > a:hover {
   border-color: #eee #eee #ddd;
@@ -4034,11 +4056,12 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li.active > a,
 .nav-tabs > li.active > a:hover,
 .nav-tabs > li.active > a:focus {
-  color: #555;
+  color: #000;
   cursor: default;
-  background-color: #fff;
+  background-color: #c0c0c0;/*#fff;*/
   border: 1px solid #ddd;
   border-bottom-color: transparent;
+  font-weight: normal;
 }
 .nav-tabs.nav-justified {
   width: 100%;
@@ -4354,7 +4377,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 @media (min-width: 768px) {
   .navbar-nav {
     float: left;
-    margin: 0;
+    margin: auto;
   }
   .navbar-nav > li {
     float: left;
