@@ -3,6 +3,7 @@ using System.Linq;
 using KriptoFeet.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using KriptoFeet.Categories.Models;
 
 namespace KriptoFeet.DB
 {
@@ -14,6 +15,8 @@ namespace KriptoFeet.DB
         public DbSet<DataEventRecord> DataEventRecords { get; set; }
  
         public DbSet<SourceInfo> SourceInfos { get; set; }
+
+        public DbSet<CategoryDB> Categories { get; set; }
  
         protected override void OnModelCreating(ModelBuilder builder)
         {

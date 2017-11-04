@@ -20,6 +20,18 @@ namespace KriptoFeet.Migrations
                 .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
                 .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
 
+            modelBuilder.Entity("KriptoFeet.Categories.Models.CategoryDB", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Name");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Categories");
+                });
+
             modelBuilder.Entity("KriptoFeet.Models.DataEventRecord", b =>
                 {
                     b.Property<long>("DataEventRecordId")
