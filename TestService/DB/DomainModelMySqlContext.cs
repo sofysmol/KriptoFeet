@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using KriptoFeet.Models;
+using KriptoFeet.News.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -14,11 +15,14 @@ namespace KriptoFeet.DB
         public DbSet<DataEventRecord> DataEventRecords { get; set; }
  
         public DbSet<SourceInfo> SourceInfos { get; set; }
+
+        public DbSet<NewsDB> News {get; set;}
  
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<DataEventRecord>().HasKey(m => m.DataEventRecordId);
             builder.Entity<SourceInfo>().HasKey(m => m.SourceInfoId);
+            builder.Entity<NewsDB>().HasKey(m => m.Id);
  
             // shadow properties
             builder.Entity<DataEventRecord>().Property<DateTime>("UpdatedTimestamp");

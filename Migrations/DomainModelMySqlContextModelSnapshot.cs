@@ -60,6 +60,29 @@ namespace KriptoFeet.Migrations
                     b.ToTable("SourceInfos");
                 });
 
+            modelBuilder.Entity("KriptoFeet.News.Models.NewsDB", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<long>("AuthorId");
+
+                    b.Property<string>("Body")
+                        .HasColumnType("text");
+
+                    b.Property<long>("CategotyId");
+
+                    b.Property<DateTime>("Date");
+
+                    b.Property<byte[]>("Picture");
+
+                    b.Property<string>("Title");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("News");
+                });
+
             modelBuilder.Entity("KriptoFeet.Models.DataEventRecord", b =>
                 {
                     b.HasOne("KriptoFeet.Models.SourceInfo", "SourceInfo")
