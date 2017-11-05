@@ -13,6 +13,8 @@ using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using Microsoft.Extensions.Logging;
 using KriptoFeet.Comments.DB;
+using KriptoFeet.Categories.DB;
+using KriptoFeet.News.DB;
 
 namespace KriptoFeet
 {
@@ -39,6 +41,8 @@ namespace KriptoFeet
 
             services.AddScoped<IDataAccessProvider, DataAccessMySqlProvider>();
             services.AddScoped<ICommentsProvider, CommentsProvider>();
+            services.AddScoped<ICategoriesProvider, CategoriesProvider>();
+            services.AddScoped<INewsProvider, NewsProvider>();
 
             services.AddMvc().AddJsonOptions(options =>
             {
