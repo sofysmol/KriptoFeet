@@ -1,0 +1,30 @@
+
+@{
+    ViewData["Title"] = "News";
+}
+
+    <div class="row">
+        <div class="col-md-8">
+
+            @Html.Partial("SingleNews")
+ 
+        </div>
+        <div class="col-md-4">
+            @Html.Partial("AboutPortal")
+            @Html.Partial("Tabs")
+        </div>
+    </div>
+    <div class="row">
+        
+        <div class="col-md-8">
+            <h4 class="header-with-line">Комментарии</h4>
+             @for (int i = 0; i<2; i++)
+             {
+            @Html.Partial("SmallUserComment")
+             }
+        </div>
+    </div>
+
+
+
+

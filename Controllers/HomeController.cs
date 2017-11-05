@@ -22,6 +22,13 @@ namespace KriptoFeet.Controllers
             return View();
         }
 
+        public IActionResult News()
+        {
+            ViewData["Message"] = "News page.";
+
+            return View();
+        }
+
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
