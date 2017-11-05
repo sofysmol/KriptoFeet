@@ -11,14 +11,37 @@ using System;
 namespace KriptoFeet.Migrations
 {
     [DbContext(typeof(DomainModelMySqlContext))]
-    partial class DomainModelMySqlContextModelSnapshot : ModelSnapshot
+    [Migration("20171104163101_addUserTable")]
+    partial class addUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn)
-                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452")
+                .HasAnnotation("ProductVersion", "2.0.0-rtm-26452");
+
+            modelBuilder.Entity("KriptoFeet.Models.DataEventRecord", b =>
+                {
+                    b.Property<long>("DataEventRecordId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Description");
+
+                    b.Property<string>("Name");
+
+                    b.Property<long>("SourceInfoId");
+
+                    b.Property<DateTime>("Timestamp");
+
+                    b.Property<DateTime>("UpdatedTimestamp");
+
+                    b.HasKey("DataEventRecordId");
+
+                    b.HasIndex("SourceInfoId");
+
+                    b.ToTable("DataEventRecords");
+                });
 
             modelBuilder.Entity("KriptoFeet.Models.SourceInfo", b =>
                 {
@@ -36,29 +59,6 @@ namespace KriptoFeet.Migrations
                     b.HasKey("SourceInfoId");
 
                     b.ToTable("SourceInfos");
-                });
-
-            modelBuilder.Entity("KriptoFeet.News.Models.NewsDB", b =>
-                {
-                    b.Property<long>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<long>("AuthorId");
-
-                    b.Property<string>("Body")
-                        .HasColumnType("text");
-
-                    b.Property<long>("CategotyId");
-
-                    b.Property<DateTime>("Date");
-
-                    b.Property<byte[]>("Picture");
-
-                    b.Property<string>("Title");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("News");
                 });
 
             modelBuilder.Entity("KriptoFeet.Users.Models.User", b =>
