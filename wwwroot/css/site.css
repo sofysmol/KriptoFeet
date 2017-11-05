@@ -72,13 +72,28 @@ body {
     font-family: 'Adamina';
     font-size: 14px;
     color: #555555;
-    height: 80px;
+    height: 100px;
+}
+.btn-groupp{
+    margin-left: 15px;
+}
+.btn-login{
+    padding-left: 15px;
+    padding-right: 15px;
+    margin-right: 55px; 
+    margin-left: 15px;
+}
+.btn-registration{
+    padding-left: 15px;
+    padding-right: 15px; 
+    margin-right: 15px;
+    float: right;
 }
 .tabs-content{
     border: 1px solid #c0c0c0;
     padding: 10px;
     margin-left: 15px;
-    height: 165px;
+    height: 167px;
     font-family: 'Adamina';
     font-size: 14px;
     font-weight: bold;
