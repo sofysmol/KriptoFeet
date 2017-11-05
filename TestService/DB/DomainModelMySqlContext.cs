@@ -4,6 +4,7 @@ using KriptoFeet.Models;
 using KriptoFeet.News.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using KriptoFeet.Comments.Models;
 using KriptoFeet.Categories.Models;
 
 namespace KriptoFeet.DB
@@ -17,6 +18,8 @@ namespace KriptoFeet.DB
  
         public DbSet<SourceInfo> SourceInfos { get; set; }
 
+        public DbSet<CommentDB> Comments { get; set; }
+        
         public DbSet<CategoryDB> Categories { get; set; }
         
         public DbSet<NewsDB> News {get; set;}
