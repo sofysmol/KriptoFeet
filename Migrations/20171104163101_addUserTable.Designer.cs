@@ -11,8 +11,8 @@ using System;
 namespace KriptoFeet.Migrations
 {
     [DbContext(typeof(DomainModelMySqlContext))]
-    [Migration("20171029142839_testMySql")]
-    partial class testMySql
+    [Migration("20171104163101_addUserTable")]
+    partial class addUserTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -59,6 +59,26 @@ namespace KriptoFeet.Migrations
                     b.HasKey("SourceInfoId");
 
                     b.ToTable("SourceInfos");
+                });
+
+            modelBuilder.Entity("KriptoFeet.Users.Models.User", b =>
+                {
+                    b.Property<long>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("Birthday");
+
+                    b.Property<string>("Email");
+
+                    b.Property<string>("FirstName");
+
+                    b.Property<string>("LastName");
+
+                    b.Property<string>("Nickname");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("KriptoFeet.Models.DataEventRecord", b =>

@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace KriptoFeet.Migrations
 {
-    public partial class testMySql : Migration
+    public partial class addUserTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -23,6 +23,23 @@ namespace KriptoFeet.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SourceInfos", x => x.SourceInfoId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Users",
+                columns: table => new
+                {
+                    Id = table.Column<long>(type: "bigint", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Birthday = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    Email = table.Column<string>(type: "longtext", nullable: true),
+                    FirstName = table.Column<string>(type: "longtext", nullable: true),
+                    LastName = table.Column<string>(type: "longtext", nullable: true),
+                    Nickname = table.Column<string>(type: "longtext", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Users", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -58,6 +75,9 @@ namespace KriptoFeet.Migrations
         {
             migrationBuilder.DropTable(
                 name: "DataEventRecords");
+
+            migrationBuilder.DropTable(
+                name: "Users");
 
             migrationBuilder.DropTable(
                 name: "SourceInfos");
