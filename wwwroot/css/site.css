@@ -117,6 +117,17 @@ body {
     margin-right: 15px;
     padding-left: 115px;
 }
+.small-news{
+    margin-bottom: 30px;
+}
+
+.date-content{
+    color: #747272;
+    font-family: 'Adamina';
+    font-size: 12px;
+    margin-left: 4px;
+    padding-left: 15px;
+}
 /* Wrapping element */
 /* Set some basic padding to keep content from hitting the edges */
 .body-content {
