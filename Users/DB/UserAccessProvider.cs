@@ -18,13 +18,13 @@ namespace KriptoFeet.Users.DB
             _context = context;
             _logger = loggerFactory.CreateLogger("UserAccessProvider");
         }
-        public void AddUser(User user)
+        public void AddUser(UserDB user)
         {
             _context.Users.Add(user);
             _context.SaveChanges();
 
         }
-        public void UpdateUser(User user)
+        public void UpdateUser(UserDB user)
         {
             _context.Users.Update(user);
             _context.SaveChanges();
@@ -36,11 +36,11 @@ namespace KriptoFeet.Users.DB
             _context.Users.Remove(entity);
             _context.SaveChanges();
         }
-        public User GetUser(long userId)
+        public UserDB GetUser(long userId)
         {
             return _context.Users.First(t => t.Id == userId);
         }
-        public List<User> GetUsers()
+        public List<UserDB> GetUsers()
         {
             return _context.Users.ToList();
         }

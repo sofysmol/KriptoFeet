@@ -18,25 +18,25 @@ namespace KriptoFeet.Users.Controllers
         }
 
          [HttpGet]
-         public IEnumerable<User> GetList()
+         public IEnumerable<UserDB> GetList()
         {
             return _userAccessProvider.GetUsers();
         }
 
         [HttpGet("{id}")]
-        public User GetUser(long id)
+        public UserDB GetUser(long id)
         {
             return _userAccessProvider.GetUser(id);
         }
 
         [HttpPost]
-        public void Post([FromBody]User value)
+        public void Post([FromBody]UserDB value)
         {
             _userAccessProvider.AddUser(value);
         }
 
         [HttpPut("{id}")]
-        public void Put(long id, [FromBody]User value)
+        public void Put(long id, [FromBody]UserDB value)
         {
             _userAccessProvider.UpdateUser(value);
         }

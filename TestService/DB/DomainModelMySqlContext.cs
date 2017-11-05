@@ -19,7 +19,7 @@ namespace KriptoFeet.DB
  
         public DbSet<SourceInfo> SourceInfos { get; set; }
 
-        public DbSet<User> Users {get; set;}
+        public DbSet<UserDB> Users {get; set;}
         
         public DbSet<CommentDB> Comments { get; set; }
         
@@ -31,8 +31,10 @@ namespace KriptoFeet.DB
         {
             builder.Entity<DataEventRecord>().HasKey(m => m.DataEventRecordId);
             builder.Entity<SourceInfo>().HasKey(m => m.SourceInfoId);
-            builder.Entity<User>().HasKey(m => m.Id);
+            builder.Entity<UserDB>().HasKey(m => m.Id);
             builder.Entity<NewsDB>().HasKey(m => m.Id);
+            builder.Entity<CommentDB>().HasKey(m => m.Id);
+            builder.Entity<CategoryDB>().HasKey(m => m.Id);
  
             // shadow properties
             builder.Entity<DataEventRecord>().Property<DateTime>("UpdatedTimestamp");

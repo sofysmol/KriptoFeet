@@ -6,10 +6,10 @@ namespace KriptoFeet.Users.DB
 {
     public interface IUserAccessProvider
     {
-        void AddUser(User user);
-        void UpdateUser(User user);
+        void AddUser(UserDB user);
+        void UpdateUser(UserDB user);
         void DeleteUser(long userId);
-        User GetUser(long userId);
-        List<User> GetUsers();  
+        UserDB GetUser(long userId);
+        List<UserDB> GetUsers();  
     }
 }

@@ -5,7 +5,7 @@ using Newtonsoft.Json;
 namespace KriptoFeet.Users.Models
 {
     using System.ComponentModel.DataAnnotations;
-    public class User
+    public class UserDB
     {
         [Key]
         public long Id {get; set;}
