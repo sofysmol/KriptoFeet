@@ -11,6 +11,16 @@ namespace KriptoFeet.Controllers
 {
     public class HomeController : Controller
     {
+        public ActionResult CreateUser()
+        {
+            return View(new User());
+        }
+
+        [HttpPost]
+        public ActionResult CreateUser(User User)
+        {
+            return View(User);
+        }
         public IActionResult Index()
         {
             return View();
