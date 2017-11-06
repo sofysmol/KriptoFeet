@@ -151,6 +151,11 @@ body {
     margin: 15px;
 }
 
+.compliance-label {
+    font-size: 10px;
+    font-weight: 200;
+    text-align: justify;
+}
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
