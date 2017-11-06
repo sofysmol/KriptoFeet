@@ -5,11 +5,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using KriptoFeet.Models;
+using KriptoFeet.Users.Models;
 
 namespace KriptoFeet.Controllers
 {
     public class HomeController : Controller
     {
+        public ActionResult CreateUser()
+        {
+            return View(new User());
+        }
+
+        [HttpPost]
+        public ActionResult CreateUser(User User)
+        {
+            return View(User);
+        }
         public IActionResult Index()
         {
             return View();
