@@ -98,13 +98,16 @@ body {
     font-size: 14px;
     font-weight: bold;
 }
-.a-header{
-    color: #008db1;
-}
+
+
 .header-small-news{
     color: black;
     font-size: 16px;
     font-weight: bold;
+}
+.a-header{
+    color: #008db1;
+
 }
 .small-news-content{
     color: #555555;
@@ -185,6 +188,11 @@ body {
     width: auto
 }
 
+.media-block .media-body .mar-btm .a-comment {
+    color: #008db1;
+    font-family: 'Andika';
+    font-size: 16 px;
+}
 
 .tag.tag-sm, .btn-group-sm>.tag {
     padding: 5px 10px;
@@ -224,16 +232,7 @@ body {
     font-family: 'Adamina';
   }
   
-  .info a {
-    color: #d0d0d0;
-    font-size: 17px; 
-    margin-right: 0px;
-    font-family: 'Adamina';
-  }
-  
-  .info a:hover {
-    color: rgb(87, 46, 237);
-  }
+
   
   .info p {
     color: #d0d0d0;
@@ -241,4 +240,15 @@ body {
     margin: 0;
     font-family: 'Adamina';
   }
+  
+  .title_3 {
+    font-weight:bold;
+  }
+  .a-single-news{
+    color: #008db1;
+    font-family: 'Andika';
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase; 
+}
   
