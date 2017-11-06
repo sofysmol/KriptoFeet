@@ -32,6 +32,17 @@ namespace KriptoFeet.Controllers
 
             return View();
         }
+        
+        public ActionResult SingIn()
+        {
+            return View(new SingInData());
+        }
+
+        [HttpPost]
+        public ActionResult SingIn(SingInData User)
+        {
+            return View(User);
+        }
 
         public IActionResult About()
         {

@@ -101,6 +101,10 @@ body {
 .a-header{
     color: #008db1;
 }
+
+.sing-in-form{
+    width: 300px;
+}
 .sing-up-form{
     width: 600px;
 }
