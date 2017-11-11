@@ -26,6 +26,8 @@ namespace KriptoFeet.DB
         public DbSet<CategoryDB> Categories { get; set; }
         
         public DbSet<NewsDB> News {get; set;}
+
+        public DbSet<SignInData> SignInData {get; set;}
  
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -35,6 +37,8 @@ namespace KriptoFeet.DB
             builder.Entity<NewsDB>().HasKey(m => m.Id);
             builder.Entity<CommentDB>().HasKey(m => m.Id);
             builder.Entity<CategoryDB>().HasKey(m => m.Id);
+            builder.Entity<SignInData>().HasKey(m => m.Password);
+            builder.Entity<SignInData>().HasKey(m => m.Email);
  
             // shadow properties
             builder.Entity<DataEventRecord>().Property<DateTime>("UpdatedTimestamp");

@@ -1,21 +1,22 @@
-@model KriptoFeet.Users.Models.SingInData
+@model KriptoFeet.Users.Models.SignInData
 @{
-    ViewBag.Title = "SingIn";
+    ViewBag.Title = "SignIn";
 }
 <div class="row">
 <div style="padding-left:0" class="col-md-4 col-md-offset-4">
     <h2>Вход</h2>
 </div>
 <div class="container col-md-4 col-md-offset-4">
-<form action="/Home/SingIn" method="post" class="form-horizontal"> 
+<form action="/Home/SignIn" method="post" class="form-horizontal"> 
     <div class="sing-in-form">
         <div class="form-group">
-        <label for="usr">Email:</label>
-        <input type="text" name="Email" class="form-control" id="usr">
+            <label asp-for="Email">Email:</label>
+            <input type="text" class="form-control" asp-for="Email">
+            <span class="validation-error" asp-validation-for="Email" />
         </div>
         <div class="form-group">
-        <label for="pwd">Password:</label>
-        <input type="password" name="Password" class="form-control" id="pwd">
+        <label asp-for="Password">Password:</label>
+        <input type="password" class="form-control" asp-for="Password">
         </div>
          <div class="form-group"> 
        <div class="col-sm-offset-3 col-sm-9">

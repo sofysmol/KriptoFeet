@@ -7,6 +7,20 @@ namespace KriptoFeet.Users.Models
     using System.ComponentModel.DataAnnotations;
     public class UserDB
     {
+        public UserDB()
+        {
+            
+        }
+        public UserDB(long id, string firstName, string lastName, DateTime birthday, string nickname, string email)
+        {
+            Id = id;
+            FirstName = firstName;
+            LastName = lastName;
+            Nickname = nickname;
+            Email = email;
+            Birthday = birthday;
+        }
+
         [Key]
         public long Id {get; set;}
 
