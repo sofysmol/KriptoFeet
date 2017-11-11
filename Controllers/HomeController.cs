@@ -26,6 +26,7 @@ namespace KriptoFeet.Controllers
 
         public ActionResult CreateUser()
         {
+            Before();
             return View(new User());
         }
 
@@ -54,17 +55,20 @@ namespace KriptoFeet.Controllers
         
         public ActionResult SingIn()
         {
+            Before();
             return View(new SingInData());
         }
 
         [HttpPost]
         public ActionResult SingIn(SingInData User)
         {
+            Before();
             return View(User);
         }
 
         public IActionResult News()
         {
+            Before();
             ViewData["Message"] = "News page.";
 
             return View();
