@@ -1,0 +1,66 @@
+
+
+@{
+    ViewData["Title"] = "UserProfile";
+}
+
+    <div class="row">
+        <div class="col-md-12">       
+            <div class=" containerNew">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        <figure>
+                        <img class="profImag img-fluid img-circle"  src="~/images/UserPhoto.png"  alt="Photo" img align="middle" >                    
+                        </figure>
+                    </div>
+                    <div class="col-xs-12 col-sm-9">
+                       <div class="row">
+                            <div class="col-xs-12 col-sm-6 ">
+                                <div class = "user_content">
+                                    <br>
+                                    <h3><strong>User Name</strong></h3>
+                                    <br>
+                                    <p>blablabla@mail.ru</p>
+                                </div>
+                                
+                            </div>
+                            <div  class="col-xs-12 col-sm-6 ">
+                                <br><br>
+                                <div class="padding_but">
+                                        <button type="button"  class="btn btn-primary btn-md  ">
+                                            <span class="glyphicon glyphicon-cog icon_color " aria-hidden="true "></span> Настройки
+                                        </button>
+                                </div>              
+                            <button type="button"  class="btn btn-primary btn-md ">
+                                <span class="glyphicon glyphicon-envelope icon_color"  style="vertical-align:middle" aria-hidden="true "></span> Подать заявку на роль<br> контент-менеджера
+                            </button>                                
+                            </div>
+                            <div  class="col-xs-12 col-sm-12 " >
+                                <hr >
+                                <ul class ="inline_fot" >                           
+
+                                    <li>                     
+                                        <font size="3px">
+                                            <p >Комментариев:  <span class="badge badge_color">42</span></p>
+                                        </font>
+                                    </li> 
+                                </ul>
+                                </hr>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-md-12">
+            <h4 class="header-with-line">Комментарии</h4>
+             @for (int i = 0; i<2; i++)
+             {
+            @Html.Partial("UserProfileComment")
+             }
+        </div>    
+
+     
+    </div>
