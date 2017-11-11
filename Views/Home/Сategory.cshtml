@@ -1,12 +1,14 @@
-﻿@{
+﻿@using KriptoFeet.News.Models
+@{
     ViewData["Title"] = "Каталог";
 }
 
     <div class="row">
         <div class="col-md-8">
-             @for (int i = 0; i<10; i++)
+             @foreach (var news in ViewBag.News)
              {
-            @Html.Partial("SmallNews")
+                @Html.Partial(
+                    "SmallNews", (NewsDB)news)
              }
         </div>
         <div class="col-md-4">
@@ -15,57 +17,4 @@
 
         </div>
     </div>
-    <!--<div class="row">
-         <div class="col-lg-6">
-             <h4 class="header-with-line"><a href="#" class="a-header" >Кино</a></h4>
-             <div class="small-news">
-                 <h4 class="header-small-news">Заголовок</h4>
-                 <div class="row">
-                    <div class="span4">
-                        <img style="float:left; margin-left:15px" src="~/images/small-news.jpg"  alt="News">
-                        <p class="small-news-content">Немного текста</p>
-                        <div style="clear:both"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-             <h4 class="header-with-line"><a href="#" class="a-header">Концерты</a></h4>
-            <div class="small-news">
-                 <h4 class="header-small-news">Заголовок</h4>
-                 <div class="row">
-                    <div class="span4">
-                        <img style="float:left; margin-left:15px" src="~/images/small-news.jpg"  alt="News">
-                        <p class="small-news-content">Немного текста</p>
-                        <div style="clear:both"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="col-lg-6">
-             <h4 class="header-with-line"><a href="#" class="a-header" >Кафе</a></h4>
-             <div class="small-news">
-                 <h4 class="header-small-news">Заголовок</h4>
-                 <div class="row">
-                    <div class="span4">
-                        <img style="float:left; margin-left:15px" src="~/images/small-news.jpg"  alt="News">
-                        <p class="small-news-content">Немного текста</p>
-                        <div style="clear:both"></div>
-                    </div>
-                </div>
-             </div>
-        </div>
-        <div class="col-lg-6">
-             <h4 class="header-with-line"><a href="#" class="a-header">Мероприятия</a></h4>
-            <div class="small-news">
-                 <h4 class="header-small-news">Заголовок</h4>
-                 <div class="row">
-                    <div class="span4">
-                        <img style="float:left; margin-left:15px" src="~/images/small-news.jpg"  alt="News">
-                        <p class="small-news-content">Немного текста</p>
-                        <div style="clear:both"></div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
     </div>

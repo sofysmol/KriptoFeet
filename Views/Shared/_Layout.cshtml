@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using KriptoFeet.News.Models
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -34,10 +35,10 @@
                 <ul class="nav navbar-nav">
                     <li class="divider-vertical"></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Index" style="color:black">KriptoFeet</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Сategory" style="color:black">Кино</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Сategory" style="color:black">Концерты</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Сategory" style="color:black">Кафе</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Сategory" style="color:black">Мероприятия</a></li>
+                    @foreach(var c in ViewBag.Categories)
+                    {
+                    <li><a asp-area="" asp-controller="Home" asp-action="Сategory" asp-route-id=@c.Id style="color:black">@c.Name</a></li>
+                    }
                 </ul>
             </div>
             <hr class="navbar-line" align="center"  noshade />

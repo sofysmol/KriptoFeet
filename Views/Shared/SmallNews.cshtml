@@ -1,12 +1,12 @@
+@using KriptoFeet.News.Models
+@model KriptoFeet.News.Models.NewsDB
 <div class="small-news">
-                <span><b>Заголовок</b></span>
+                <span><b>@Model.Title</b></span>
                  <div class="row">
                     <div class="span4">
                         <img style="float:left; margin-left:15px" src="~/images/small-news.jpg"  alt="News">
-                        <dev class="date-content">12 Октября 2016</dev>
-                        <p class="small-news-content">Немного текстаНемного текстаНемного текстаНемного текстаНемного текстаНемного
-                             текстаНемного текстаНемного текстаНемного текстаНемного текстаНемного текстаНемного текста
-                             Немного текстаНемного текстаНемного текста</p>
+                        <dev class="date-content">@Model.Date</dev>
+                        <p class="small-news-content">@Model.Body</p>
                         <div style="clear:both"></div>
                     </div>
                 </div>

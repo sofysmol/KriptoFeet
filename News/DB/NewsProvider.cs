@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using KriptoFeet.DB;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using KriptoFeet.Comments.DB;
+using System;
+using MoreLinq;
 
 namespace KriptoFeet.News.DB
 {
@@ -11,10 +14,15 @@ namespace KriptoFeet.News.DB
         private readonly DomainModelMySqlContext _context;
         private readonly ILogger _logger;
 
-        public NewsProvider(DomainModelMySqlContext context, ILoggerFactory loggerFactory)
+        private readonly ICommentsProvider _commentsProvider;
+
+        public NewsProvider(DomainModelMySqlContext context,
+                            ILoggerFactory loggerFactory,
+                            ICommentsProvider commentsProvider)
         {
             _context = context;
-            _logger = loggerFactory.CreateLogger("NewsProvider");;
+            _logger = loggerFactory.CreateLogger("NewsProvider");
+            _commentsProvider = commentsProvider;
         }
         public void AddNewsDB(NewsDB news)
         {
@@ -39,6 +47,22 @@ namespace KriptoFeet.News.DB
         public List<NewsDB> GetNewsDB()
         {
             return _context.News.ToList();
+        }
+
+        public List<NewsDB> GetNewsDBByCategory(long id)
+        {
+            return _context.News.Where(n => n.CategotyId == id).ToList();
+        }
+        public NewsDB GetPopularNewsForCategory(long id)
+        {
+            return _context.News.ToList().Where(n => n.CategotyId == id).Select((n,i) =>
+                Tuple.Create(n, _commentsProvider.GetCommentsByNewsId(n.Id).Count)
+            ).ToList().MaxBy(x => x.Item2).Item1;
+        }
+
+        public NewsDB GetLastNews()
+        {
+            return _context.News.ToList().MaxBy(x => x.Date);
         }
     }
 }

@@ -10,6 +10,7 @@ namespace KriptoFeet.Comments.DB
         void UpdateComment(long commentId, CommentDB commentDB);
         void DeleteComment(long commentId);
         CommentDB GetComment(long commentId);
-        List<CommentDB> GetComments();  
+        List<CommentDB> GetComments(); 
+        List<CommentDB> GetCommentsByNewsId(long id); 
     }
 }

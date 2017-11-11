@@ -10,5 +10,11 @@ namespace KriptoFeet.News.DB
         void DeleteNewsDB(long newsId);
         NewsDB GetNewsDB(long newsId);
         List<NewsDB> GetNewsDB();
+
+        List<NewsDB> GetNewsDBByCategory(long id);
+
+        NewsDB GetPopularNewsForCategory(long id);
+
+        NewsDB GetLastNews();
     }
 }
