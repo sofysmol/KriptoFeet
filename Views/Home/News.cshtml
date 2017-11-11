@@ -9,12 +9,11 @@
             @Html.Partial("SingleNews", Model)
  
         </div>
-        <div class="col-md-4">
+        <div class="col-md-4 ">
             @Html.Partial("AboutPortal")
-            @Html.Partial("Tabs")
         </div>
-    </div>
-    <div class="row">
+   
+   
         
         <div class="col-md-8">
             <h4 class="header-with-line">Комментарии</h4>
@@ -22,6 +21,9 @@
              {
             @Html.Partial("SmallUserComment", c)
              }
+        </div>
+                <div class="col-md-4 ">
+            @Html.Partial("Tabs")
         </div>
     </div>
 
