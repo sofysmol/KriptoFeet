@@ -101,10 +101,21 @@ body {
 .a-header{
     color: #008db1;
 }
+
+.sing-in-form{
+    width: 300px;
+}
+.sing-up-form{
+    width: 600px;
+}
 .header-small-news{
     color: black;
     font-size: 16px;
     font-weight: bold;
+}
+.a-header{
+    color: #008db1;
+
 }
 .small-news-content{
     color: #555555;
@@ -148,6 +159,11 @@ body {
     margin: 15px;
 }
 
+.compliance-label {
+    font-size: 10px;
+    font-weight: 200;
+    text-align: justify;
+}
 /* Hide/rearrange for smaller screens */
 @media screen and (max-width: 767px) {
     /* Hide captions */
@@ -155,3 +171,97 @@ body {
         display: none;
     }
 }
+
+
+
+.img-sm {
+     width: 46px;
+     height: 46px;
+}
+.panel {
+    box-shadow: 0 2px 0 rgba(0.7,0,0.3,0.075);
+    border-radius: 0;
+    border: 0;
+    margin-bottom: 15px;
+}
+
+.panel-body {
+    padding: 25px 20px;
+}
+.media-block .media-left {
+    display: block;
+    float: left
+}
+.media-block .media-right {
+    float: right
+}
+.media-block .media-body {
+    display: block;
+    overflow: hidden;
+    width: auto
+}
+
+.media-block .media-body .mar-btm .a-comment {
+    color: #008db1;
+    font-family: 'Andika';
+    font-size: 16 px;
+}
+
+.tag.tag-sm, .btn-group-sm>.tag {
+    padding: 5px 10px;
+}
+
+.text-sm {
+ font-size: 0.9em;
+}
+.text-5x, .text-4x, .text-5x, .text-2x, .text-lg, .text-sm, .text-xs {
+    line-height: 1.25;
+}
+
+.btn-sm, .btn-group-sm>.btn, .btn-icon.btn-sm {
+    padding: 5px 10px !important;
+}
+.mar-top {
+    margin-top: 15px;
+}
+
+.info {
+    font-family: 'Adamina';
+    margin-left: -40px;
+   
+  }
+  
+  .info li {
+    display: inline-block;
+    margin-right: 0px;
+    font-family: 'Adamina';
+    font-size: 17px;
+  }
+  
+  .info i {
+    color: #d0d0d0;
+    font-size: 17px;
+    margin-right: 0px;
+    font-family: 'Adamina';
+  }
+  
+
+  
+  .info p {
+    color: #d0d0d0;
+    font-size: 17px;
+    margin: 0;
+    font-family: 'Adamina';
+  }
+  
+  .title_3 {
+    font-weight:bold;
+  }
+  .a-single-news{
+    color: #008db1;
+    font-family: 'Andika';
+    font-size: 16px;
+    font-weight: bold;
+    text-transform: uppercase; 
+}
+  

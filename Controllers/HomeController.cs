@@ -5,9 +5,10 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using KriptoFeet.Models;
-using KriptoFeet.News.DB;
 using KriptoFeet.Categories.DB;
 using KriptoFeet.Categories.Models;
+using KriptoFeet.Users.Models;
+using KriptoFeet.News.DB;
 
 namespace KriptoFeet.Controllers
 {
@@ -23,6 +24,16 @@ namespace KriptoFeet.Controllers
             _categoriesProvider = categoriesProvider;
         }
 
+        public ActionResult CreateUser()
+        {
+            return View(new User());
+        }
+
+        [HttpPost]
+        public ActionResult CreateUser(User User)
+        {
+            return View(User);
+        }
         public IActionResult Index()
         {
             Before();
@@ -38,6 +49,24 @@ namespace KriptoFeet.Controllers
             Before();
             ViewData["Message"] = "Your contact page.";
             ViewBag.News = _newsProvider.GetNewsDBByCategory(id);
+            return View();
+        }
+        
+        public ActionResult SingIn()
+        {
+            return View(new SingInData());
+        }
+
+        [HttpPost]
+        public ActionResult SingIn(SingInData User)
+        {
+            return View(User);
+        }
+
+        public IActionResult News()
+        {
+            ViewData["Message"] = "News page.";
+
             return View();
         }
 
