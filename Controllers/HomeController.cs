@@ -63,6 +63,12 @@ namespace KriptoFeet.Controllers
 
             return View();
         }
+        public IActionResult ContentManagerProfile()
+        {
+            ViewData["Message"] = "User profile settings page.";
+
+            return View();
+        }
 
         public IActionResult About()
         {
