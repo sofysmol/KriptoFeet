@@ -8,52 +8,60 @@
 <form action="/Home/CreateUser" method="post" class="form-horizontal"> 
     <div class="sing-up-form">
     <div class="form-group">
-        <label class="control-label col-sm-4" for="first-name">Имя</label>
+        <label class="control-label col-sm-4" asp-for="FirstName">Имя</label>
         <div class="col-sm-8">
-            <input name="FirstName" value="@Model.FirstName" class="form-control" id="first-name"/>
+            <input value="@Model.FirstName" class="form-control" asp-for="FirstName"/>
+            <span class="validation-error" asp-validation-for="FirstName" />
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-4" for="last-name">Фамилия</label>
+        <label class="control-label col-sm-4" asp-for="LastName">Фамилия</label>
         <div class="col-sm-8">
-            <input name="LastName" value="@Model.LastName" class="form-control" id="last-name"/>
+            <input value="@Model.LastName" class="form-control" asp-for="LastName"/>
+            <span class="validation-error" asp-validation-for="LastName" />
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-4" for="birthday">День рождения</label>
+        <label class="control-label col-sm-4" asp-for="Birthday">День рождения</label>
         <div class="col-sm-8">
-        <input name="Birthday" type="date" value="@Model.Birthday" class="form-control" id="birthday"/>
+            <input type="date" value="@Model.Birthday" class="form-control" asp-for="Birthday"/>
+            <span class="validation-error" asp-validation-for="Birthday" />
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-4" for="nickname">Ник</label>
+        <label class="control-label col-sm-4" asp-for="Nickname">Ник</label>
         <div class="col-sm-8">
-            <input name="Nickname" value="@Model.Nickname" class="form-control" id="nickname"/>
+            <input value="@Model.Nickname" class="form-control" asp-for="Nickname"/>
+            <span class="validation-error" asp-validation-for="Nickname" />
+       </div>
+    </div>
+    <div class="form-group">
+        <label class="control-label col-sm-4" asp-for="Email">Email</label>
+        <div class="col-sm-8">
+            <input value="@Model.Email" class="form-control" asp-for="Email"/>
+            <span class="validation-error" asp-validation-for="Email" />
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-4" for="email">Email</label>
+        <label class="control-label col-sm-4" asp-for="Password">Пароль</label>
         <div class="col-sm-8">
-        <input name="Email" value="@Model.Email" class="form-control" id="email"/>
+            <input type="password" value="" class="form-control" asp-for="Password"/>
+            <span class="validation-error" asp-validation-for="Password" />
         </div>
     </div>
     <div class="form-group">
-        <label class="control-label col-sm-4" for="password">Пароль</label>
+        <label class="control-label col-sm-4" asp-for="PasswordAgain">Повторите пароль</label>
         <div class="col-sm-8">
-        <input type="password" name="password" value="" class="form-control" id="password"/>
-        </div>
-    </div>
-    <div class="form-group">
-        <label class="control-label col-sm-4" for="password-again">Повторите пароль</label>
-        <div class="col-sm-8">
-        <input type="password" name="password-again" value="" class="form-control" id="password-again"/>
+            <input type="password"  value="" class="form-control" asp-for="PasswordAgain"/>
+            <span class="validation-error" asp-validation-for="PasswordAgain" />
         </div>
     </div>
     <div class="form-group">
         <div class="col-sm-offset-1 col-sm-1">
-        <input type="checkbox" name="compliance" value="" id="compliance">
+            <input type="checkbox" value="" asp-for="Agreement">
+            <span class="validation-error" asp-validation-for="Agreement" />
         </div>
-        <label align="left" class="compliance-label col-sm-10" for="compliance">Я даю согласие на использование персональных данных.
+        <label align="left" class="agreement-label col-sm-10" asp-for="Agreement">Я даю согласие на использование персональных данных.
              Данным согласием я разрешаю сбор моих персональных данных, их хранение,
               систематизацию, обновление, использование (в т.ч. передачу третьим лицам для обмена информацией),
                а также осуществление любых иных действий, предусмотренных действующим законом Российской Федерации.</label>

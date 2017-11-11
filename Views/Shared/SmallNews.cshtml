@@ -1,7 +1,7 @@
 @using KriptoFeet.News.Models
 @model KriptoFeet.News.Models.NewsDB
 <div class="small-news">
-                <a asp-area="" asp-controller="Home" asp-action="News" style="color:black">@Model.Title</a>
+                <a asp-area="" asp-controller="Home" asp-action="News" asp-route-id=@Model.Id style="color:black">@Model.Title</a>
                  <div class="row">
                     <div class="span4">
                         <img style="float:left; margin-left:15px" src="~/images/small-news.jpg"  alt="News">

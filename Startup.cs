@@ -16,6 +16,9 @@ using KriptoFeet.Users.DB;
 using KriptoFeet.Comments.DB;
 using KriptoFeet.Categories.DB;
 using KriptoFeet.News.DB;
+using KriptoFeet.News;
+using KriptoFeet.Comments;
+using KriptoFeet.Users;
 
 namespace KriptoFeet
 {
@@ -40,11 +43,14 @@ namespace KriptoFeet
                 )
             );
 
-            services.AddScoped<IUserAccessProvider, UserAccessProvider>();
+            services.AddScoped<IUsersProvider, UsersProvider>();
             services.AddScoped<IDataAccessProvider, DataAccessMySqlProvider>();
             services.AddScoped<ICommentsProvider, CommentsProvider>();
             services.AddScoped<ICategoriesProvider, CategoriesProvider>();
             services.AddScoped<INewsProvider, NewsProvider>();
+            services.AddScoped<INewsService, NewsService>();
+            services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<ICommentsService, CommentsService>();
 
             services.AddMvc().AddJsonOptions(options =>
             {

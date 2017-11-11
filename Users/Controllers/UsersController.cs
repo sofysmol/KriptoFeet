@@ -10,41 +10,41 @@ namespace KriptoFeet.Users.Controllers
     [Route("api/[controller]")]
     public class UsersController : Controller
     {
-        private readonly IUserAccessProvider _userAccessProvider;
+        private readonly IUsersProvider _usersProvider;
         
-        public UsersController(IUserAccessProvider userAccessProvider)
+        public UsersController(IUsersProvider usersProvider)
         {
-            _userAccessProvider = userAccessProvider;
+            _usersProvider = usersProvider;
         }
 
          [HttpGet]
          public IEnumerable<UserDB> GetList()
         {
-            return _userAccessProvider.GetUsers();
+            return _usersProvider.GetUsers();
         }
 
         [HttpGet("{id}")]
         public UserDB GetUser(long id)
         {
-            return _userAccessProvider.GetUser(id);
+            return _usersProvider.GetUser(id);
         }
 
         [HttpPost]
         public void Post([FromBody]UserDB value)
         {
-            _userAccessProvider.AddUser(value);
+            _usersProvider.AddUser(value);
         }
 
         [HttpPut("{id}")]
         public void Put(long id, [FromBody]UserDB value)
         {
-            _userAccessProvider.UpdateUser(value);
+            _usersProvider.UpdateUser(value);
         }
 
         [HttpDelete("{id}")]
         public void Delete(long id)
         {
-            _userAccessProvider.DeleteUser(id);
+            _usersProvider.DeleteUser(id);
         }
     }
 }

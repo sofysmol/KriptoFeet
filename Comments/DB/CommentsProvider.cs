@@ -49,7 +49,7 @@ namespace KriptoFeet.Comments.DB
 
         public List<CommentDB> GetCommentsByNewsId(long id)
         {
-            return _context.Comments.Where(c => c.newsId == id).ToList();
+            return _context.Comments.Where(c => c.NewsId == id).ToList();
         }
     }
 }

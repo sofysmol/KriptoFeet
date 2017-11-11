@@ -9,6 +9,8 @@ using KriptoFeet.Categories.DB;
 using KriptoFeet.Categories.Models;
 using KriptoFeet.Users.Models;
 using KriptoFeet.News.DB;
+using KriptoFeet.News;
+using KriptoFeet.News.Models;
 
 namespace KriptoFeet.Controllers
 {
@@ -16,12 +18,16 @@ namespace KriptoFeet.Controllers
     {
         INewsProvider _newsProvider;
         ICategoriesProvider _categoriesProvider;
-        
+
+        INewsService _newsService;
+
         public HomeController(INewsProvider newsProvider,
-                              ICategoriesProvider categoriesProvider)
+                              ICategoriesProvider categoriesProvider,
+                              INewsService newsService)
         {
             _newsProvider = newsProvider;
             _categoriesProvider = categoriesProvider;
+            _newsService = newsService;
         }
 
         public ActionResult CreateUser()
@@ -33,14 +39,19 @@ namespace KriptoFeet.Controllers
         [HttpPost]
         public ActionResult CreateUser(User User)
         {
-            return View(User);
+            Before();
+            if (ModelState.IsValid)
+            {
+                return View(User);
+            }
+            else return View(User);
         }
         public IActionResult Index()
         {
             Before();
-            List<Category> categories = _categoriesProvider.GetCategories().Select(c => 
+            List<Category> categories = _categoriesProvider.GetCategories().Select(c =>
             new Category(c.Name, _newsProvider.GetPopularNewsForCategory(c.Id))).ToList();
-            
+
             ViewBag.LastNews = _newsProvider.GetLastNews();
             return View(categories);
         }
@@ -52,7 +63,7 @@ namespace KriptoFeet.Controllers
             ViewBag.News = _newsProvider.GetNewsDBByCategory(id);
             return View();
         }
-        
+
         public ActionResult SingIn()
         {
             Before();
@@ -63,15 +74,19 @@ namespace KriptoFeet.Controllers
         public ActionResult SingIn(SingInData User)
         {
             Before();
-            return View(User);
+            if (ModelState.IsValid)
+            {
+                return View(User);
+            }
+            else return View(User);
         }
 
-        public IActionResult News()
+        public IActionResult News(long id)
         {
             Before();
             ViewData["Message"] = "News page.";
-
-            return View();
+            NewsInfo news = _newsService.GetNews(id);
+            return View(news);
         }
 
         public IActionResult About()

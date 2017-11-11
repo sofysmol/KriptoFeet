@@ -8,15 +8,15 @@ using KriptoFeet.DB;
 
 namespace KriptoFeet.Users.DB
 {
-    public class UserAccessProvider : IUserAccessProvider
+    public class UsersProvider : IUsersProvider
     {
         private readonly DomainModelMySqlContext _context;
         private readonly ILogger _logger;
 
-        public UserAccessProvider(DomainModelMySqlContext context, ILoggerFactory loggerFactory)
+        public UsersProvider(DomainModelMySqlContext context, ILoggerFactory loggerFactory)
         {
             _context = context;
-            _logger = loggerFactory.CreateLogger("UserAccessProvider");
+            _logger = loggerFactory.CreateLogger("UsersProvider");
         }
         public void AddUser(UserDB user)
         {

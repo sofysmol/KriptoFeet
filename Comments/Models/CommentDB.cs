@@ -10,11 +10,12 @@ namespace KriptoFeet.Comments.Models
     {
         [Key]
         public long Id {get; set;}
-        public long authorId {get;set;}
-        public long newsId {get; set;}
+        public long AuthorId {get;set;}
+        public long NewsId {get; set;}
 
         [Column(TypeName = "text")]
-        public string comment {get; set;}
-
+        public string Comment {get; set;}
+        
+        public DateTime Date {get; set;}
     }
 }

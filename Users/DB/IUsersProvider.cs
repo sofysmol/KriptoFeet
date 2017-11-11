@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace KriptoFeet.Users.DB
 {
-    public interface IUserAccessProvider
+    public interface IUsersProvider
     {
         void AddUser(UserDB user);
         void UpdateUser(UserDB user);
