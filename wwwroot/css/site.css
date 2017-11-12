@@ -130,7 +130,7 @@ body {
     color: #747272;
     font-family: 'Adamina';
     font-size: 12px;
-    margin-left: 4px;
+    margin-left: 5px;
     padding-left: 15px;
 }
 /* Wrapping element */
@@ -227,8 +227,11 @@ body {
 }
 
 .info {
+    color: #747272;
     font-family: 'Adamina';
-    margin-left: -40px;
+    font-size: 12px;
+    margin-left: 0px;
+    padding-left: 0px;
    
   }
   
@@ -236,12 +239,12 @@ body {
     display: inline-block;
     margin-right: 0px;
     font-family: 'Adamina';
-    font-size: 17px;
+    font-size: 12px;
   }
   
   .info i {
-    color: #d0d0d0;
-    font-size: 17px;
+    color: #747272;
+    font-size: 12px;
     margin-right: 0px;
     font-family: 'Adamina';
   }
@@ -249,7 +252,7 @@ body {
 
   
   .info p {
-    color: #d0d0d0;
+    color:#747272;
     font-size: 17px;
     margin: 0;
     font-family: 'Adamina';
@@ -372,10 +375,10 @@ ul.inline_fot {
 	display: none;
 	padding: 15px;
 	background: #fff;
-	border: 1px solid #ddd;
+	border-top: 2px solid #F4F3F3;
 }
 .tabs>section>p {
-	margin: 0 0 5px;
+	margin: 0 0 0px;
 	line-height: 1.5;
 	color: #383838;
 	/* прикрутим анимацию */
@@ -418,29 +421,17 @@ ul.inline_fot {
 	text-align: center;
 	color: #aaa;
 	border: 0px solid #ddd;
-	border-width: 1px 1px 1px 1px;
-	background: #f1f1f1;
-	border-radius: 3px 3px 0 0;
+	border-width: 0px;
+	background: #fff;
+	border-radius: 0px 0px 0 0;
 }
 /* Шрифт-иконки от Font Awesome в формате Unicode */
 .tabs>label:before {
 	font-family: fontawesome;
 	font-weight: normal;
-	margin-right: 10px;
+	margin-right: 0px;
 }
-.tabs>label[for*="1"]:before {
-	content: "\f19a";
-}
-.tabs>label[for*="2"]:before {
-	content: "\f17a";
-}
-.tabs>label[for*="3"]:before {
-	content: "\f13b";
-}
-.tabs>label[for*="4"]:before {
-	content: "\f13c";
-}
-/* Изменения стиля переключателей вкладок при наведении */
+
  
 .tabs>label:hover {
 	color: #888;
@@ -449,7 +440,7 @@ ul.inline_fot {
 /* Стили для активной вкладки */
 .tabs>input:checked+label {
 	color: #555;
-	border-top: 1px solid #009933;
+	border-top: 1px solid #F4F3F3;
 	border-bottom: 1px solid #fff;
 	background: #fff;
 }
@@ -461,15 +452,7 @@ ul.inline_fot {
 * и оставляем иконки на малых экранах
 */
  
-@media screen and (max-width: 680px) {
-	.tabs>label {
-		font-size: 0;
-	}
-	.tabs>label:before {
-		margin: 0;
-		font-size: 18px;
-	}
-}
+
 /* Изменяем внутренние отступы 
 *  переключателей для малых экранов
 */
