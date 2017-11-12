@@ -5,5 +5,7 @@ namespace KriptoFeet.Users
     {
         AuthorInfo GetAuthor(long id);
         void CreateUser(User user);
+        void UpdateUserSettings(UserSettings settings);
+        UserSettings GetUserSettings();
     }
 }

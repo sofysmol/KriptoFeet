@@ -52,6 +52,7 @@ namespace KriptoFeet
             services.AddScoped<INewsProvider, NewsProvider>();
             services.AddScoped<INewsService, NewsService>();
             services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<ICommentsService, CommentsService>();
             services.AddSingleton<ILongRandomGenerator, LongRandomGenerator>();
 

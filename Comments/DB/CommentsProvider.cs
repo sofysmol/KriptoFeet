@@ -39,17 +39,25 @@ namespace KriptoFeet.Comments.DB
 
         public CommentDB GetComment(long commentId)
         {
-            return _context.Comments.First(t => t.Id == commentId);
+            return _context.Comments.FirstOrDefault(t => t.Id == commentId);
         }
 
         public List<CommentDB> GetComments()
         {
-            return _context.Comments.ToList();
+            try
+            {
+                return _context.Comments.ToList();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Can't get Comments", e);
+                return new List<CommentDB>();
+            }
         }
 
         public List<CommentDB> GetCommentsByNewsId(long id)
         {
-            return _context.Comments.Where(c => c.NewsId == id).ToList();
+            return GetComments().Where(c => c.NewsId == id).ToList();
         }
     }
 }

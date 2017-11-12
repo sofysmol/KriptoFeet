@@ -31,5 +31,10 @@ namespace KriptoFeet.Comments
             return _commentsProvider.GetComments().Where(c => c.NewsId == id)
             .Select(c => new Comment(c.Comment, _usersService.GetAuthor(c.AuthorId), c.Date)).ToList();
         }
+        public List<Comment> GetCommentsByAuthorId(long id)
+        {
+            AuthorInfo author = _usersService.GetAuthor(id);
+            return _commentsProvider.GetComments().Where(c => c.AuthorId == id).Select(c => new Comment(c.Comment, author, c.Date)).ToList();
+        }
     }
 }

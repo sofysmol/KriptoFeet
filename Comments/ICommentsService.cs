@@ -15,5 +15,6 @@ namespace KriptoFeet.Comments
     public interface ICommentsService
     {
          List<Comment> GetCommenstsByNewsId(long id);
+         List<Comment> GetCommentsByAuthorId(long id);
     }
 }

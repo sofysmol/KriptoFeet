@@ -6,6 +6,7 @@ using System.Linq;
 using KriptoFeet.Comments.DB;
 using System;
 using MoreLinq;
+using Microsoft.EntityFrameworkCore;
 
 namespace KriptoFeet.News.DB
 {
@@ -36,33 +37,52 @@ namespace KriptoFeet.News.DB
         }
         public void DeleteNewsDB(long newsId)
         {
-            var entity = _context.News.First(t => t.Id == newsId);
+            var entity = _context.News.FirstOrDefault(t => t.Id == newsId);
             _context.News.Remove(entity);
             _context.SaveChanges();
         }
         public NewsDB GetNewsDB(long newsId)
         {
-            return _context.News.First(t => t.Id == newsId);
+            return _context.News.FirstOrDefault(t => t.Id == newsId);
         }
         public List<NewsDB> GetNewsDB()
         {
-            return _context.News.ToList();
+            DbSet<NewsDB> news = _context.News;
+            if (news != null)
+                return _context.News.ToList();
+            else return new List<NewsDB>();
         }
 
         public List<NewsDB> GetNewsDBByCategory(long id)
         {
-            return _context.News.Where(n => n.CategotyId == id).ToList();
+            return GetNewsDB().Where(n => n.CategotyId == id).ToList();
         }
         public NewsDB GetPopularNewsForCategory(long id)
         {
-            return _context.News.ToList().Where(n => n.CategotyId == id).Select((n,i) =>
-                Tuple.Create(n, _commentsProvider.GetCommentsByNewsId(n.Id).Count)
-            ).ToList().MaxBy(x => x.Item2).Item1;
+            try
+            {
+                return GetNewsDB().Where(n => n.CategotyId == id).Select((n, i) =>
+                    Tuple.Create(n, _commentsProvider.GetCommentsByNewsId(n.Id).Count)
+                ).ToList().MaxBy(x => x.Item2).Item1;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Can't get PopularNews", e);
+                return new NewsDB();
+            }
         }
 
         public NewsDB GetLastNews()
         {
-            return _context.News.ToList().MaxBy(x => x.Date);
+            try
+            {
+                return GetNewsDB().MaxBy(x => x.Date);
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Can't get LastNews", e);
+                return new NewsDB();
+            }
         }
     }
 }

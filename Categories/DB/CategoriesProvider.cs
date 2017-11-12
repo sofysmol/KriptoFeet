@@ -4,6 +4,7 @@ using KriptoFeet.Categories.DB;
 using KriptoFeet.DB;
 using Microsoft.Extensions.Logging;
 using System.Linq;
+using System;
 
 namespace KriptoFeet.Categories.DB
 {
@@ -35,11 +36,17 @@ namespace KriptoFeet.Categories.DB
         }
         public CategoryDB GetCategory(long categoryId)
         {
-            return _context.Categories.First(t => t.Id == categoryId);
+            return GetCategories().First(t => t.Id == categoryId);
         }
         public List<CategoryDB> GetCategories()
         {
+            try{
             return _context.Categories.ToList();
+            } catch(Exception e)
+            {
+                _logger.LogError("Can't get categories", e);
+                return new List<CategoryDB>();
+            }
         }
     }
 }

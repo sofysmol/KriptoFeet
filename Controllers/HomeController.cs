@@ -18,21 +18,25 @@ namespace KriptoFeet.Controllers
 {
     public class HomeController : Controller
     {
-        INewsProvider _newsProvider;
-        ICategoriesProvider _categoriesProvider;
+        private readonly INewsProvider _newsProvider;
+        private readonly ICategoriesProvider _categoriesProvider;
 
-        INewsService _newsService;
-        IUsersService _userService;
+        private readonly INewsService _newsService;
+        private readonly IUsersService _userService;
+
+        private readonly IProfileService _profileService;
 
         public HomeController(INewsProvider newsProvider,
                               ICategoriesProvider categoriesProvider,
                               INewsService newsService,
-                              IUsersService userService)
+                              IUsersService userService,
+                              IProfileService profileService)
         {
             _newsProvider = newsProvider;
             _categoriesProvider = categoriesProvider;
             _newsService = newsService;
             _userService = userService;
+            _profileService = profileService;
         }
 
         public ActionResult CreateUser()
@@ -114,16 +118,37 @@ namespace KriptoFeet.Controllers
         }
         public IActionResult UserProfile()
         {
+            Before();
             ViewData["Message"] = "User profile page.";
-
-            return View();
+            return View(_profileService.GetProfile());
         }
 
         public IActionResult UserProfileSettings()
         {
+            Before();
             ViewData["Message"] = "User profile settings page.";
 
-            return View();
+            try
+            {
+                return View(_userService.GetUserSettings());
+            }
+            catch (Exception e)
+            {
+                return View(new UserSettings(null, null, new DateTime(), null, null));
+            }
+        }
+
+        public IActionResult UserProfileSettings1(UserSettings settings)
+        {
+            Before();
+
+            ViewData["Message"] = "User profile settings page.";
+            if (ModelState.IsValid)
+            {
+                _userService.UpdateUserSettings(settings);
+                return View(settings);
+            }
+            else return View(new UserSettings(null, null, new DateTime(), null, null));
         }
 
         public IActionResult About()

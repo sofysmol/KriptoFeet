@@ -9,6 +9,7 @@ using MoreLinq;
 using KriptoFeet.Users.DB;
 using KriptoFeet.Exceptions;
 using KriptoFeet.Utils;
+using KriptoFeet.Comments;
 
 namespace KriptoFeet.Users
 {
@@ -18,19 +19,15 @@ namespace KriptoFeet.Users
         private readonly ILongRandomGenerator rand;
         private readonly ILogger _logger;
 
-        private readonly ICommentsProvider _commentsProvider;
-
         private readonly ISignInDataProvider _signInDataProvider;
 
         private readonly IUsersProvider _usersProvider;
         public UsersService(IUsersProvider usersProvider,
-                            ICommentsProvider commentsProvider,
                             ISignInDataProvider signInDataProvider,
                             ILongRandomGenerator randomGenerator,
                             ILoggerFactory loggerFactory)
         {
             _usersProvider = usersProvider;
-            _commentsProvider = commentsProvider;
             _signInDataProvider = signInDataProvider;
             _logger = loggerFactory.CreateLogger("NewsService");
              rand = randomGenerator;
@@ -51,6 +48,24 @@ namespace KriptoFeet.Users
             UserDB userDB = new UserDB(rand.Next(), user.FirstName, user.LastName, user.Birthday,user.Nickname, user.Email); 
             _usersProvider.AddUser(userDB);
             _signInDataProvider.AddSignInData(new SignInData(user.Email, user.Password));
+        }
+
+        public void UpdateUserSettings(UserSettings settings)
+        {
+            UserDB user = _usersProvider.GetUserByEmail(settings.Email);
+            user.Birthday = settings.Birthday;
+            user.Email = settings.Email;
+            user.FirstName = settings.FirstName;
+            user.LastName = settings.LastName;
+            user.Nickname = settings.Nickname;
+            _usersProvider.UpdateUser(user);
+
+        }
+
+        public UserSettings GetUserSettings()
+        {
+            UserDB user = _usersProvider.GetUsers().FirstOrDefault();
+            return new UserSettings(user.FirstName, user.LastName, user.Birthday, user.Nickname, user.Email);
         }
     }
 }

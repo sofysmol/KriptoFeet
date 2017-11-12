@@ -10,6 +10,7 @@ namespace KriptoFeet.Users.DB
         void UpdateUser(UserDB user);
         void DeleteUser(long userId);
         UserDB GetUser(long userId);
-        List<UserDB> GetUsers();  
+        List<UserDB> GetUsers(); 
+        UserDB GetUserByEmail(string email);  
     }
 }

@@ -38,12 +38,31 @@ namespace KriptoFeet.Users.DB
         }
         public UserDB GetUser(long userId)
         {
-            return _context.Users.First(t => t.Id == userId);
+            return GetUsers().First(t => t.Id == userId);
         }
         public List<UserDB> GetUsers()
         {
-            return _context.Users.ToList();
+            try
+            {
+                return _context.Users.ToList();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError("Can't get Users", e);
+                return new List<UserDB>();
+            }
         }
-        
+
+       public UserDB GetUserByEmail(string email)
+       {
+           try{
+           return GetUsers().First(t => t.Email == email);
+           } catch(Exception e)
+           {
+               _logger.LogError("Can't find user by email", e);
+               return null;
+           }
+       }
+
     }
 }
