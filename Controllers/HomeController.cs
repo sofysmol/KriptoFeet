@@ -74,6 +74,17 @@ namespace KriptoFeet.Controllers
             }
             else return View(User);
         }
+      
+        public ActionResult CreateNews()
+        {
+            return View();
+        }
+        public ActionResult CorrectNews()
+        {
+            return View();
+        }
+
+        
         public IActionResult Index()
         {
             Before();
@@ -160,6 +171,12 @@ namespace KriptoFeet.Controllers
             Before();
             ViewData["Message"] = "User profile page.";
             return View(_profileService.GetContentManagerProfile());
+        }
+        public IActionResult AdminProfile()
+        {
+            ViewData["Message"] = "User profile page.";
+
+            return View();
         }
 
         public IActionResult About()

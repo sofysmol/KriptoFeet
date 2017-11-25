@@ -1,0 +1,216 @@
+
+@{
+    ViewData["Title"] = "AdminProfile";
+}
+
+    <div class="row">
+        <div class="col-md-12">       
+            <div class=" containerNew">
+                <div class="row">
+                    <div class="col-xs-12 col-sm-3">
+                        <figure>
+                        <img class="profImag img-fluid img-circle"  src="~/images/UserPhoto.png"  alt="Photo" img align="middle" >                    
+                        </figure>
+                    </div>
+                    <div class="col-xs-12 col-sm-9">
+                       <div class="row">
+                            <div class="col-xs-12 col-sm-6 ">
+                                <div class = "user_content">
+                                    <br>
+                                    <h3><strong>User Name</strong></h3>
+                                    <br>
+                                    <p>blablabla@mail.ru</p>
+                                    <p>Администратор</p>
+                                </div>
+                            </div>
+                            <div  class="col-xs-12 col-sm-6 ">
+                                <br><br>
+                                <div class="padding_but">
+                                        <button type="button"  class="btn btn-primary btn-md  ">
+                                            <span class="glyphicon glyphicon-cog icon_color " aria-hidden="true "></span> Настройки
+                                        </button>
+                                </div>                                             
+                            </div>
+                            <div  class="col-xs-12 col-sm-12 " >
+                                <hr >
+                                <ul class ="inline_fot" >                           
+                                    <li>
+                                        <font size="3px">
+                                            <p >Новостей:  <span class="badge badge_color">42</span></p>
+                                        </font>                            
+                                    </li>
+                                    <li>                     
+                                        <font size="3px">
+                                            <p > Комментариев:  <span class="badge badge_color">42</span></p>
+                                        </font>
+                                    </li> 
+                                    <li >                                               
+                                        <div align ="right">
+                                            <button type="button"  class="btn btn-primary btn-md  ">
+                                                <span class="glyphicon glyphicon-pencil icon_color " aria-hidden="true "></span> Добавить новость
+                                            </button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                <br>
+                                <ul class ="inline_fot_2" >                           
+                                    <li>
+                                        <font size="3px">
+                                            <p >Новостных групп:  <span class="badge badge_color">42</span></p>
+                                        </font>                            
+                                    </li>
+                                    <li>                     
+                                        <font size="3px">
+                                            <p >Контент-менеджеров:  <span class="badge badge_color">42</span></p>
+                                        </font>
+                                    </li> 
+                                    <li >                                               
+                                        <div align ="right">
+                                            <button type="button"  class="btn btn-primary btn-md  ">
+                                                <span class="glyphicon glyphicon-pencil icon_color " aria-hidden="true "></span> Добавить группу
+                                            </button>
+                                        </div>
+                                    </li>
+                                </ul>
+                                </hr>                            
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class=" col-md-12">
+            <br>
+            <br>
+            <div class="tabs">
+                <input id="tab1" type="radio" name="tabs" checked>
+                <label for="tab1" title="Вкладка 1">Новости</label>
+            
+                <input id="tab2" type="radio" name="tabs">
+                <label for="tab2" title="Вкладка 2">Комментарии</label>
+
+                <input id="tab3" type="radio" name="tabs">
+                <label for="tab3" title="Вкладка 3">Новостные группы</label>
+
+                <input id="tab4" type="radio" name="tabs">
+                <label for="tab4" title="Вкладка 4">Контент-менеджеры</label>
+            
+
+            
+                <section id="content-tab1">
+                
+                    
+                    @{
+                    int numNews= 0;
+                        
+                    }
+                    @if (numNews==0)
+                    {
+                        <p>Нет новостей</p>
+                    }
+                    else
+                    {
+                        <p>
+                        <div class="col-md-12">
+                            @for (int i = 0; i< numNews; i++)
+                            {
+                                @Html.Partial("SmallNewsForManagerPage")
+                            }
+                        </div>
+                    </p>
+                    }
+                </section>  
+                <section id="content-tab2">
+                                       
+                   @{
+                     int numComm= 0;
+                        
+                    }
+                    @if (numComm==0)
+                    {
+                        <p>Нет комментариев</p>
+                    }
+                    else
+                    {
+                        <p>
+                        @for (int i = 0; i<numComm; i++)
+                        {
+                            @Html.Partial("UserProfileComment")
+                        }
+                    </p>
+                    }
+
+
+                </section> 
+                    <section id="content-tab3">
+                    @{
+                        int numNewsGroups= 5;
+                        
+                    }
+                    @if (numNewsGroups==0)
+                    {
+                        <p>Нет новостных групп</p>
+                    }
+                    else
+                    {
+                        <p>
+                        @for (int i = 0; i< numNewsGroups; i++)
+                        {
+                        @Html.Partial("SmallGroup")
+                        }
+                    </p>
+                    }
+
+                </section> 
+
+                <section id="content-tab4">
+                    <div class = "row">
+                        <div class="col-md-6">
+                            <h4 class="header-cont-manag-request">Действующие контент-менеджеры</h4>
+                              @{
+                                int numCurrContManag= 1;
+                                
+                            }
+                            @if (numCurrContManag==0)
+                            {
+                                <p>Нет новостных групп</p>
+                            }
+                            else
+                            {
+                                <p>
+                                @for (int i = 0; i< numCurrContManag; i++)
+                                {
+                                @Html.Partial("CurrContentManag")
+                                }
+                            </p>
+                            }
+                        </div>
+                        <div class="col-md-6">
+                            <h4 class="header-cont-manag-request">Заявки в контент менеджеры</h4>
+                            @{
+                                int numNewReq= 5;
+                                
+                            }
+                            @if (numNewReq==0)
+                            {
+                                <p>Нет новостных групп</p>
+                            }
+                            else
+                            {
+                                <p>
+                                @for (int i = 0; i< numNewReq; i++)
+                                {
+                                @Html.Partial("ContentManagReq")
+                                }
+                            </p>
+                            }
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>  
+    </div>
+
+
+
+

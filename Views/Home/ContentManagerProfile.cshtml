@@ -29,10 +29,12 @@
                                         <a asp-area="" asp-controller="Home" asp-action="UserProfileSettings" class="btn btn-primary btn-md">
                                             <span class="glyphicon glyphicon-cog icon_color " aria-hidden="true "></span> Настройки
                                         </a>
-                                </div>              
+                                </div> 
+                                <div class="pad_but_2">               
                                 <button type="button"  class="btn btn-primary btn-md ">
                                     <span class="glyphicon glyphicon-remove-sign icon_color"  style="vertical-align:middle" aria-hidden="true "></span> Отказаться от роли <br>  контент- менеджера
-                                </button>                                 
+                                </button>  
+                                </div>                               
                             </div>
                             <div  class="col-xs-12 col-sm-12 " >
                                 <hr >
@@ -73,13 +75,14 @@
                 <label for="tab2" title="Вкладка 2">Комментарии</label>
             
 
+
             
                 <section id="content-tab1">
                     <p>
                     <div class="col-md-12">
                         @foreach(var n in Model.News)
                         {
-                        @Html.Partial("SmallNewsForMenegerPage", n)
+                        @Html.Partial("SmallNewsForManagerPage")
                         }
                     </div>
                     </p>

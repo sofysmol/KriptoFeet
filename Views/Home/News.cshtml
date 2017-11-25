@@ -12,20 +12,36 @@
         </div>
         <div class="col-md-4 ">
             @Html.Partial("AboutPortal")
+            @Html.Partial("Tabs")
+     
         </div>
    
    
         
-        <div class="col-md-8">
+        <div class="col-md-12">
             <h4 class="header-with-line">Комментарии</h4>
+<<<<<<< HEAD
              @foreach(var c in Model.Comments)
+=======
+            <div class="panel">
+                <div class="panel-body_1">
+                    <textarea class="form-control" rows="4" placeholder="Добавьте Ваш комментарий"></textarea>
+                    <div class="mar-top clearfix">
+                        <button class="btn btn-sm btn-primary pull-right" type="submit"><i class="fa fa-pencil fa-fw"></i> Добавить</button>
+                    </div>
+                </div>
+            </div>
+             <div class="col-md-7">
+            <div class ="row">
+             @for (int i = 0; i<2; i++)
+>>>>>>> origin/master
              {
             @Html.Partial("SmallUserComment", c)
              }
+             </div>
         </div>
-                <div class="col-md-4 ">
-            @Html.Partial("Tabs")
         </div>
+
     </div>
 
 
