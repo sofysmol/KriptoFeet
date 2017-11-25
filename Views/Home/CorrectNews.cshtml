@@ -1,0 +1,66 @@
+
+@{
+    ViewData["Title"] = "CorrectNews";
+}
+
+    <div class="row">
+        <div class="col-md-12" >    
+            <div class="containerNewForCreateNews">
+                    <br>
+                        <form class="form-horizontal" >
+                            <div class="form-group"  >
+                                <label  class="control-label col-sm-3" for="first-name">Заголовок новости</label>
+                                <div class="col-sm-4">
+                                    <input type="email" class="form-control" id="mail" placeholder="Заголовок новости">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3 " for="first-name">Новостная группа</label>
+                                <div class="col-sm-4">
+                                    <select class="form-control input-lg"style="color:#888;">
+                                        <option  style="display:none">Новостная группа</option>
+                                        <option  style="color:black">Кино</option>
+                                        <option  style="color:black">Театр</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="control-label col-sm-3" for="first-name">Изображение</label>
+                                <div class="col-sm-4">
+                                    <div class="but_top">
+                                        <button type="button" class="btn btn-primary btn-md ">
+                                            Обзор...
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                             <div class="form-group">
+                                 <label class="control-label col-sm-3" for="first-name">Текст новости:</label>
+                                 <br><br>
+                                 <div class="col-sm-8 col-md-offset-3" >
+                                    <textarea id="message" class="form-control" rows="10"  required></textarea>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group ">
+                                <div class=" col-sm-8 col-md-offset-8 pad_left_but_correct_news">
+                                    <button type="button" class="btn btn-primary btn-md ">
+                                     Сохранить изменения
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                    <div class="col-md-12">
+                        <h4 class="header-with-line">Комментарии</h4>
+                        @for (int i = 0; i<2; i++)
+                        {
+                        @Html.Partial("UserProfileComment")
+                        }
+                    </div> 
+                </div>
+        
+ 
+   

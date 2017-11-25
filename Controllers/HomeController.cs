@@ -22,6 +22,14 @@ namespace KriptoFeet.Controllers
             return View(User);
         }
       
+        public ActionResult CreateNews()
+        {
+            return View();
+        }
+        public ActionResult CorrectNews()
+        {
+            return View();
+        }
 
         
         public IActionResult Index()
