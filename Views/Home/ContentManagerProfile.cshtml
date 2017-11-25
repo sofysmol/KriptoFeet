@@ -1,4 +1,4 @@
-
+@model KriptoFeet.Users.Models.UserProfile
 @{
     ViewData["Title"] = "ContentManagerProfile";
 }
@@ -17,18 +17,18 @@
                             <div class="col-xs-12 col-sm-6 ">
                                 <div class = "user_content">
                                     <br>
-                                    <h3><strong>User Name</strong></h3>
+                                    <h3><strong>@Model.Nickname</strong></h3>
                                     <br>
-                                    <p>blablabla@mail.ru</p>
+                                    <p>@Model.Email</p>
                                     <p>Контент-менеджер</p>
                                 </div>
                             </div>
                             <div  class="col-xs-12 col-sm-6 ">
                                 <br><br>
                                 <div class="padding_but">
-                                        <button type="button"  class="btn btn-primary btn-md  ">
+                                        <a asp-area="" asp-controller="Home" asp-action="UserProfileSettings" class="btn btn-primary btn-md">
                                             <span class="glyphicon glyphicon-cog icon_color " aria-hidden="true "></span> Настройки
-                                        </button>
+                                        </a>
                                 </div>              
                                 <button type="button"  class="btn btn-primary btn-md ">
                                     <span class="glyphicon glyphicon-remove-sign icon_color"  style="vertical-align:middle" aria-hidden="true "></span> Отказаться от роли <br>  контент- менеджера
@@ -39,12 +39,12 @@
                                 <ul class ="inline_fot" >                           
                                     <li>
                                         <font size="3px">
-                                            <p >Новостей:  <span class="badge badge_color">42</span></p>
+                                            <p >Новостей:  <span class="badge badge_color">@Model.News.Count</span></p>
                                         </font>                            
                                     </li>
                                     <li>                     
                                         <font size="3px">
-                                            <p >Комментариев:  <span class="badge badge_color">42</span></p>
+                                            <p >Комментариев:  <span class="badge badge_color">@Model.Comments.Count</span></p>
                                         </font>
                                     </li> 
                                     <li >                                               
@@ -77,18 +77,18 @@
                 <section id="content-tab1">
                     <p>
                     <div class="col-md-12">
-                        @for (int i = 0; i<10; i++)
+                        @foreach(var n in Model.News)
                         {
-                        @Html.Partial("SmallNewsForMenegerPage")
+                        @Html.Partial("SmallNewsForMenegerPage", n)
                         }
                     </div>
                     </p>
                 </section>  
                 <section id="content-tab2">
                     <p>
-                        @for (int i = 0; i<2; i++)
+                        @foreach(var c in Model.Comments)
                         {
-                        @Html.Partial("UserProfileComment")
+                            @Html.Partial("UserProfileComment", c)
                         }
                     </p>
                 </section> 

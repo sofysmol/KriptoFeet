@@ -138,6 +138,11 @@ namespace KriptoFeet.Controllers
             }
         }
 
+        public IActionResult UserProfileSettings1(PasswordChangingRequest request)
+        {
+            return UserProfileSettings();
+        }
+
         public IActionResult UserProfileSettings1(UserSettings settings)
         {
             Before();
@@ -152,9 +157,9 @@ namespace KriptoFeet.Controllers
         }
         public IActionResult ContentManagerProfile()
         {
-            ViewData["Message"] = "User profile settings page.";
-
-            return View();
+            Before();
+            ViewData["Message"] = "User profile page.";
+            return View(_profileService.GetContentManagerProfile());
         }
 
         public IActionResult About()
