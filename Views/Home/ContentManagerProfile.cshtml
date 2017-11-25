@@ -29,10 +29,12 @@
                                         <button type="button"  class="btn btn-primary btn-md  ">
                                             <span class="glyphicon glyphicon-cog icon_color " aria-hidden="true "></span> Настройки
                                         </button>
-                                </div>              
-                                <button type="button"  class="btn btn-primary btn-md ">
-                                    <span class="glyphicon glyphicon-remove-sign icon_color"  style="vertical-align:middle" aria-hidden="true "></span> Отказаться от роли <br>  контент- менеджера
-                                </button>                                 
+                                </div>        
+                                <div class="pad_but_2">     
+                                    <button type="button"  class="btn btn-primary btn-md ">
+                                        <span class="glyphicon glyphicon-remove-sign icon_color"  style="vertical-align:middle" aria-hidden="true "></span> Отказаться от роли <br>  контент- менеджера
+                                    </button>  
+                                </div>                                
                             </div>
                             <div  class="col-xs-12 col-sm-12 " >
                                 <hr >
@@ -73,13 +75,14 @@
                 <label for="tab2" title="Вкладка 2">Комментарии</label>
             
 
+
             
                 <section id="content-tab1">
                     <p>
                     <div class="col-md-12">
                         @for (int i = 0; i<10; i++)
                         {
-                        @Html.Partial("SmallNewsForMenegerPage")
+                        @Html.Partial("SmallNewsForManagerPage")
                         }
                     </div>
                     </p>

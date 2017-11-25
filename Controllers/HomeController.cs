@@ -21,6 +21,9 @@ namespace KriptoFeet.Controllers
         {
             return View(User);
         }
+      
+
+        
         public IActionResult Index()
         {
             return View();
@@ -66,6 +69,12 @@ namespace KriptoFeet.Controllers
         public IActionResult ContentManagerProfile()
         {
             ViewData["Message"] = "User profile settings page.";
+
+            return View();
+        }
+        public IActionResult AdminProfile()
+        {
+            ViewData["Message"] = "User profile page.";
 
             return View();
         }
