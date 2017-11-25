@@ -20,9 +20,6 @@
         
         <div class="col-md-12">
             <h4 class="header-with-line">Комментарии</h4>
-<<<<<<< HEAD
-             @foreach(var c in Model.Comments)
-=======
             <div class="panel">
                 <div class="panel-body_1">
                     <textarea class="form-control" rows="4" placeholder="Добавьте Ваш комментарий"></textarea>
@@ -33,8 +30,7 @@
             </div>
              <div class="col-md-7">
             <div class ="row">
-             @for (int i = 0; i<2; i++)
->>>>>>> origin/master
+             @foreach(var c in Model.Comments)
              {
             @Html.Partial("SmallUserComment", c)
              }
