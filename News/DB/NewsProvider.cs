@@ -58,7 +58,7 @@ namespace KriptoFeet.News.DB
             return GetNewsDB().Where(n => n.CategotyId == id).ToList();
         }
 
-        public List<NewsDB> GetNewsDBByAuthor(long id)
+        public List<NewsDB> GetNewsDBByAuthor(string id)
         {
             return GetNewsDB().Where(n => n.AuthorId == id).ToList();
         }

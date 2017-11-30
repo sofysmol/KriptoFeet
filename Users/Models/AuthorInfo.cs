@@ -2,12 +2,12 @@ namespace KriptoFeet.Users.Models
 {
     public class AuthorInfo
     {
-        public AuthorInfo(long id, string nickname)
+        public AuthorInfo(string id, string nickname)
         {
             Id = id;
             Nickname = nickname;
         }
-        public long Id;
+        public string Id;
         public string Nickname;
     }
 }

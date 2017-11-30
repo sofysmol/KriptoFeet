@@ -11,7 +11,7 @@ namespace KriptoFeet.News.Models
         public long Id {get; set;}
 
         public long CategotyId {get; set;}
-        public long AuthorId {get; set;}
+        public string AuthorId {get; set;}
         public DateTime Date {get; set;}
 
         public string Title {get; set;}

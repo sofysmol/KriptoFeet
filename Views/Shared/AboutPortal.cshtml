@@ -1,8 +1,22 @@
 <div class="about-portal">
         <h4 class="header-with-line">О портале</h4>
         <p class="portal-text" height="100px">Описание портала</p>
+        @if(User.Identity.IsAuthenticated)
+        {
+            
+            <div class="btn-groupp">
+            <p>@User.Identity.Name</p>
+            <a asp-area="" asp-controller="User" asp-action="UserProfile" class="btn btn-primary btn-login">Учетная запись</a>
+            <form class="btn-logoff" method="post" asp-controller="Account" asp-action="LogOff">
+                <input class="btn btn-primary" type="submit" value="Выход" />
+            </form>
+            </div>
+        }
+        else
+        {
         <div class="btn-groupp">
-            <a asp-area="" asp-controller="Home" asp-action="SignIn" class="btn btn-primary btn-login">Войти</a>
-            <a asp-area="" asp-controller="Home" asp-action="CreateUser" class="btn btn-primary btn-registration">Регистрация</a>
+            <a asp-area="" asp-controller="Account" asp-action="SignIn" class="btn btn-primary btn-login">Войти</a>
+            <a asp-area="" asp-controller="Account" asp-action="CreateUser" class="btn btn-primary btn-registration">Регистрация</a>
         </div>
+        }
 </div>

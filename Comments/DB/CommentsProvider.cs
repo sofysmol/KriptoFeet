@@ -46,7 +46,9 @@ namespace KriptoFeet.Comments.DB
         {
             try
             {
-                return _context.Comments.ToList();
+                var comments = _context.Comments;
+                if(comments == null) return new List<CommentDB>();
+                else return comments.ToList();
             }
             catch (Exception e)
             {

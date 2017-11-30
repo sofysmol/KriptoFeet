@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using KriptoFeet.Models;
 using KriptoFeet.Categories.DB;
 using KriptoFeet.Categories.Models;
 using KriptoFeet.Users.Models;
@@ -13,6 +12,13 @@ using KriptoFeet.News;
 using KriptoFeet.News.Models;
 using KriptoFeet.Users;
 using KriptoFeet.Exceptions;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Authorization;
+using KriptoFeet.Utils;
 
 namespace KriptoFeet.Controllers
 {
@@ -26,64 +32,29 @@ namespace KriptoFeet.Controllers
 
         private readonly IProfileService _profileService;
 
+        private readonly UserManager<Account> _userManager;
+        private readonly SignInManager<Account> _signInManager;
+
+        private readonly ILongRandomGenerator _rand;
+
         public HomeController(INewsProvider newsProvider,
                               ICategoriesProvider categoriesProvider,
                               INewsService newsService,
                               IUsersService userService,
-                              IProfileService profileService)
+                              IProfileService profileService,
+                              UserManager<Account> userManager,
+                              SignInManager<Account> signInManager,
+                              ILongRandomGenerator rand)
         {
             _newsProvider = newsProvider;
             _categoriesProvider = categoriesProvider;
             _newsService = newsService;
             _userService = userService;
             _profileService = profileService;
+            _userManager = userManager;
+            _signInManager = signInManager;
+            _rand = rand;
         }
-
-        public ActionResult CreateUser()
-        {
-            Before();
-            return View(new User());
-        }
-
-        [HttpPost]
-        public ActionResult CreateUser(User User)
-        {
-            Before();
-            if (!User.Agreement)
-            {
-                ModelState.AddModelError("Agreement", "Без согласия невозможно выполнить регистрацию");
-                return View(User);
-            }
-            if (ModelState.IsValid)
-            {
-                try
-                {
-                    _userService.CreateUser(User);
-                    return View(User);
-                }
-                catch (NicknameException e)
-                {
-                    ModelState.AddModelError("Nickname", "Пользоватеь с таким ником уже существует");
-                    return View(User);
-                }
-                catch (EmailException e)
-                {
-                    ModelState.AddModelError("Email", "Пользоватеь с таким Email уже существует");
-                    return View(User);
-                }
-            }
-            else return View(User);
-        }
-      
-        public ActionResult CreateNews()
-        {
-            return View();
-        }
-        public ActionResult CorrectNews()
-        {
-            return View();
-        }
-
         
         public IActionResult Index()
         {
@@ -103,81 +74,17 @@ namespace KriptoFeet.Controllers
             return View();
         }
 
-        public ActionResult SignIn()
-        {
-            Before();
-            return View(new SignInData());
-        }
+        
 
-        [HttpPost]
-        public ActionResult SignIn(SignInData User)
-        {
-            Before();
-            if (ModelState.IsValid)
-            {
-                return View(User);
-            }
-            else return View(User);
-        }
-
-        public IActionResult News(long id)
+        public async Task<IActionResult> News(long id)
         {
             Before();
             ViewData["Message"] = "News page.";
-            NewsInfo news = _newsService.GetNews(id);
+            NewsInfo news = await _newsService.GetNews(id);
             return View(news);
         }
-        public IActionResult UserProfile()
-        {
-            Before();
-            ViewData["Message"] = "User profile page.";
-            return View(_profileService.GetProfile());
-        }
-
-        public IActionResult UserProfileSettings()
-        {
-            Before();
-            ViewData["Message"] = "User profile settings page.";
-
-            try
-            {
-                return View(_userService.GetUserSettings());
-            }
-            catch (Exception e)
-            {
-                return View(new UserSettings(null, null, new DateTime(), null, null));
-            }
-        }
-
-        public IActionResult UserProfileSettings1(PasswordChangingRequest request)
-        {
-            return UserProfileSettings();
-        }
-
-        public IActionResult UserProfileSettings1(UserSettings settings)
-        {
-            Before();
-
-            ViewData["Message"] = "User profile settings page.";
-            if (ModelState.IsValid)
-            {
-                _userService.UpdateUserSettings(settings);
-                return View(settings);
-            }
-            else return View(new UserSettings(null, null, new DateTime(), null, null));
-        }
-        public IActionResult ContentManagerProfile()
-        {
-            Before();
-            ViewData["Message"] = "User profile page.";
-            return View(_profileService.GetContentManagerProfile());
-        }
-        public IActionResult AdminProfile()
-        {
-            ViewData["Message"] = "User profile page.";
-
-            return View();
-        }
+        
+        
 
         public IActionResult About()
         {
@@ -193,10 +100,10 @@ namespace KriptoFeet.Controllers
             return View();
         }
 
-        public IActionResult Error()
+        /*public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+        }*/
 
         private void Before()
         {

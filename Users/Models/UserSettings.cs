@@ -15,6 +15,12 @@ namespace KriptoFeet.Users.Models
             Nickname = nickname;
             Email = email;
         }
+
+        public UserSettings()
+        {
+
+        }
+        
         [Required (ErrorMessage = "Поле должно быть заполнено")]
         [Display(Name = "Имя")]
         public string FirstName { get; set; }

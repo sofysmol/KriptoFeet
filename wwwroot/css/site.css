@@ -89,6 +89,14 @@ body {
     margin-right: 15px;
     float: right;
 }
+
+.btn-logoff{
+    padding-left: 15px;
+    padding-right: 15px; 
+    margin-right: 10px;
+    float: right;
+}
+
 .tabs-content{
     border: 1px solid #c0c0c0;
     padding: 10px;

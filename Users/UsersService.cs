@@ -6,10 +6,11 @@ using System.Linq;
 using KriptoFeet.Comments.DB;
 using System;
 using MoreLinq;
-using KriptoFeet.Users.DB;
 using KriptoFeet.Exceptions;
 using KriptoFeet.Utils;
 using KriptoFeet.Comments;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
 
 namespace KriptoFeet.Users
 {
@@ -19,53 +20,61 @@ namespace KriptoFeet.Users
         private readonly ILongRandomGenerator rand;
         private readonly ILogger _logger;
 
-        private readonly ISignInDataProvider _signInDataProvider;
-
-        private readonly IUsersProvider _usersProvider;
-        public UsersService(IUsersProvider usersProvider,
-                            ISignInDataProvider signInDataProvider,
+        private readonly UserManager<Account> _userManager;
+        public UsersService(UserManager<Account> userManager,
                             ILongRandomGenerator randomGenerator,
                             ILoggerFactory loggerFactory)
         {
-            _usersProvider = usersProvider;
-            _signInDataProvider = signInDataProvider;
+            _userManager = userManager;
             _logger = loggerFactory.CreateLogger("NewsService");
              rand = randomGenerator;
         }
 
-        public AuthorInfo GetAuthor(long id)
+        public async Task<AuthorInfo> GetAuthor(string id)
         {
-            UserDB user = _usersProvider.GetUser(id);
-            return new AuthorInfo(id, user.Nickname);
+            Account user = await _userManager.FindByIdAsync(id);
+            /*if (user == null)
+            {
+                return NotFound();
+            }*/
+            return new AuthorInfo(id, user.UserName);
         }
 
-        public void CreateUser(User user)
+        /*public void CreateUser(User user)
         {
-            List<UserDB> users = _usersProvider.GetUsers().Where(u => u.Nickname == user.Nickname || u.Email ==user.Email).ToList();
+            List<Account> users = await _userManager.Users.Where(u => u.Nickname == user.Nickname || u.Email ==user.Email).ToList();
             if (users.Count > 0 && users.First().Nickname == user.Nickname) throw new NicknameException();
             if (users.Count > 0 && users.First().Email == user.Email) throw new EmailException();
         
             UserDB userDB = new UserDB(rand.Next(), user.FirstName, user.LastName, user.Birthday,user.Nickname, user.Email); 
             _usersProvider.AddUser(userDB);
             _signInDataProvider.AddSignInData(new SignInData(user.Email, user.Password));
+        }*/
+
+        public async Task<bool> UpdateUserSettings(Account user, UserSettings settings)
+        {
+            if(user!=null)
+            {
+                user.Birthday = settings.Birthday;
+                user.Email = settings.Email;
+                user.FirstName = settings.FirstName;
+                user.LastName = settings.LastName;
+                user.UserName = settings.Nickname;
+                var result = await _userManager.UpdateAsync(user);
+                return result.Succeeded;
+            }
+            return false;
+
         }
 
-        public void UpdateUserSettings(UserSettings settings)
+        public async Task<UserSettings> GetUserSettings(string id)
         {
-            UserDB user = _usersProvider.GetUserByEmail(settings.Email);
-            user.Birthday = settings.Birthday;
-            user.Email = settings.Email;
-            user.FirstName = settings.FirstName;
-            user.LastName = settings.LastName;
-            user.Nickname = settings.Nickname;
-            _usersProvider.UpdateUser(user);
-
-        }
-
-        public UserSettings GetUserSettings()
-        {
-            UserDB user = _usersProvider.GetUsers().FirstOrDefault();
-            return new UserSettings(user.FirstName, user.LastName, user.Birthday, user.Nickname, user.Email);
+            Account user = await _userManager.FindByIdAsync(id);
+            /*if (user == null)
+            {
+                return NotFound();
+            }*/
+            return new UserSettings(user.FirstName, user.LastName, user.Birthday, user.UserName, user.Email);
         }
     }
 }

@@ -8,10 +8,11 @@ namespace KriptoFeet.Users.Models
     public class SignInData
     {
 
-        public SignInData(string email, string password)
+        public SignInData(string nickname, string password, string returnUrl)
         {
-            Email = email;
+            Nickname = nickname;
             Password = password;
+            ReturnUrl = returnUrl;
         }
 
         public SignInData()
@@ -21,10 +22,11 @@ namespace KriptoFeet.Users.Models
 
         [Key]
         [Required(ErrorMessage = "Поле должно быть заполнено")]
-        [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Некорректный адрес")]
-        public string Email { get; set; }
+        public string Nickname { get; set; }
 
         [Required(ErrorMessage = "Поле должно быть заполнено")]
+        [DataType(DataType.Password)]
         public string Password { get; set; }
+        public string ReturnUrl { get; set; }
     }
 }

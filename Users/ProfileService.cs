@@ -6,12 +6,16 @@ using Microsoft.Extensions.Logging;
 using System.Linq;
 using KriptoFeet.Comments.DB;
 using KriptoFeet.News.DB;
+using KriptoFeet.News;
 using System;
 using MoreLinq;
-using KriptoFeet.Users.DB;
+using KriptoFeet.Categories.DB;
 using KriptoFeet.Exceptions;
 using KriptoFeet.Utils;
 using KriptoFeet.Comments;
+using Microsoft.AspNetCore.Identity;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
 
 namespace KriptoFeet.Users
 {
@@ -21,28 +25,45 @@ namespace KriptoFeet.Users
 
         private readonly ICommentsService _commentsService;
 
-        private readonly IUsersProvider _usersProvider;
-        private readonly INewsProvider _newsProvider;
-        public ProfileService(IUsersProvider usersProvider,
-                            INewsProvider newsProvider,
+        private readonly UserManager<Account> _userManager;
+
+        private readonly ICategoriesProvider _categoriesProvider;
+        private readonly INewsService _newsService;
+        public ProfileService(UserManager<Account> userManager,
+                            INewsService newsService,
                             ICommentsService commentsService,
+                            ICategoriesProvider categoriesProvider,
                             ILoggerFactory loggerFactory)
         {
-            _usersProvider = usersProvider;
+            _userManager = userManager;
             _commentsService = commentsService;
-            _newsProvider = newsProvider;
+            _newsService = newsService;
+            _categoriesProvider = categoriesProvider;
             _logger = loggerFactory.CreateLogger("NewsService");
         }
-        public UserProfile GetProfile()
+        public async Task<UserProfile> GetProfile(string id)
         {
-            UserDB user = _usersProvider.GetUsers().FirstOrDefault();
-            return new UserProfile(user.Nickname, user.Email, _commentsService.GetCommentsByAuthorId(user.Id), new List<NewsDB>());   
+            Account user = await _userManager.FindByIdAsync(id);
+            /*if (user == null)
+            {
+                return NotFound();
+            }*/
+            return new UserProfile(user.UserName, user.Email, await _commentsService.GetCommentsByAuthorId(user.Id));   
 
         }
-        public UserProfile GetContentManagerProfile()
+        public async Task<UserProfile> GetContentManagerProfile(string id)
         {
-             UserProfile profile = GetProfile();
-             profile.News = _newsProvider.GetNewsDBByAuthor(6599);
+             UserProfile profile = await GetProfile(id);
+             profile.News = (await _newsService.GetNewsByAuthor(id)).ToList();
+             return profile;
+        }
+
+        public async Task<UserProfile> GetAdminProfile(string id)
+        {
+            UserProfile profile = await GetContentManagerProfile(id);
+             profile.Categories = _categoriesProvider.GetCategories();
+             profile.ContentManagers = new List<string>();//_userManager.Users.Select(u => u.LastName + u.FirstName).ToList();
+             profile.ContentManagersRequests = new List<string>();//_userManager.Users.Select(u => u.LastName + u.FirstName).ToList();
              return profile;
         }
     }

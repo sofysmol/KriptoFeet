@@ -22,7 +22,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-4">
                     <br>
-                    <form action="/Home/UserProfileSettings1" method="post" class="form-horizontal">
+                    <form asp-controller="User" asp-action="UserProfileSettings" method="post" class="form-horizontal">
                     <div class="form-group">
                         <p>Имя </p>
                         <div class="col-sm-10">
@@ -44,19 +44,19 @@
                             <span class="validation-error" asp-validation-for="Nickname" />
                         </div>
                     </div>
-                    </form>
                 </div>
 
                 <div class="col-xs-12 col-sm-4">
                     <br>
-                    <form class="form-horizontal">
                     <div class="form-group">
                         <p>  Дата рождения </p>
                         <div class="col-sm-10">
-                            <input type="date" value="@Model.Birthday" class="form-control" asp-for="Birthday" placeholder="Дата рождения">
+                            <input type="date" value="@string.Format("{0:yyyy-MM-dd}", Model.Birthday)" class="form-control" asp-for="Birthday">
                             <span class="validation-error" asp-validation-for="Birthday" />
                         </div>
                     </div>
+                    <br>
+                    <br>
                     <div class="form-group">
                         <p>  Email</p>
                         <div class="col-sm-10">
@@ -65,11 +65,13 @@
                         </div>
                     </div>
                     <br>
+                    <br>
                     <div class="but_top">
-                        <button type="button" type="submit" class="btn btn-primary btn-md ">
+                        <button type="submit" class="btn btn-primary btn-md ">
                         Сохранить изменения
                         </button>
                     </div>
+                    <span class="validation-error" asp-validation-summary="All"></span>
                     </form>
                 </div>
                 </div>

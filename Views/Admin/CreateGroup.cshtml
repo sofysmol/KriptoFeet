@@ -1,0 +1,26 @@
+@model KriptoFeet.Users.Models.CreateGroupView
+@{
+    ViewBag.Title = "CreateGroup";
+}
+<div class="row">
+<div style="padding-left:0" class="col-md-4 col-md-offset-4">
+    <h2>Создать группу</h2>
+</div>
+<div class="container col-md-4 col-md-offset-4">
+<form asp-controller="Admin" asp-action="CreateGroup" method="post" class="form-horizontal"> 
+    <div class="sing-in-form">
+        <div class="form-group">
+            <label asp-for="Name">Название группы:</label>
+            <input type="text" class="form-control" asp-for="Name">
+            <span class="validation-error" asp-validation-for="Name" />
+        </div>
+         <div class="form-group"> 
+       <div class="col-sm-offset-3 col-sm-9">
+              <button type="submit" class="btn btn-primary">Отправить</button>
+     </div>
+     <span class="validation-error" asp-validation-summary="All" />
+   </div>
+    </div>
+</form>
+</div>
+</div>

@@ -7,14 +7,18 @@ using System.Linq;
 using KriptoFeet.Comments.DB;
 using System;
 using MoreLinq;
-using KriptoFeet.Users.DB;
 using KriptoFeet.Users;
+using System.Threading.Tasks;
 
 namespace KriptoFeet.Comments
 {
     public interface ICommentsService
     {
-         List<Comment> GetCommenstsByNewsId(long id);
-         List<Comment> GetCommentsByAuthorId(long id);
+         Task<Comment[]> GetCommenstsByNewsId(long id);
+         Task<List<Comment>> GetCommentsByAuthorId(string id);
+         void SaveComment(Account user, string comment, long newsId);
+    
+         void DeleteComment(long id, string authorId);
+         CommentDB GetComment(long id);
     }
 }

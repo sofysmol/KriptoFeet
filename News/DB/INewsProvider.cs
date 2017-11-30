@@ -16,6 +16,6 @@ namespace KriptoFeet.News.DB
         NewsDB GetPopularNewsForCategory(long id);
 
         NewsDB GetLastNews();
-        List<NewsDB> GetNewsDBByAuthor(long id);
+        List<NewsDB> GetNewsDBByAuthor(string id);
     }
 }

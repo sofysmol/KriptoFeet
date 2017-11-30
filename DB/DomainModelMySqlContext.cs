@@ -1,48 +1,33 @@
 using System;
 using System.Linq;
-using KriptoFeet.Models;
 using KriptoFeet.News.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using KriptoFeet.Users.Models;
 using KriptoFeet.Comments.Models;
 using KriptoFeet.Categories.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace KriptoFeet.DB
 {
-    public class DomainModelMySqlContext : DbContext
+    public class DomainModelMySqlContext : IdentityDbContext<Account>
     {
         public DomainModelMySqlContext(DbContextOptions<DomainModelMySqlContext> options) :base(options)
         { }
-         
-        public DbSet<DataEventRecord> DataEventRecords { get; set; }
- 
-        public DbSet<SourceInfo> SourceInfos { get; set; }
-
-        public DbSet<UserDB> Users {get; set;}
         
         public DbSet<CommentDB> Comments { get; set; }
         
         public DbSet<CategoryDB> Categories { get; set; }
         
         public DbSet<NewsDB> News {get; set;}
-
-        public DbSet<SignInData> SignInData {get; set;}
  
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<DataEventRecord>().HasKey(m => m.DataEventRecordId);
-            builder.Entity<SourceInfo>().HasKey(m => m.SourceInfoId);
             builder.Entity<UserDB>().HasKey(m => m.Id);
             builder.Entity<NewsDB>().HasKey(m => m.Id);
             builder.Entity<CommentDB>().HasKey(m => m.Id);
             builder.Entity<CategoryDB>().HasKey(m => m.Id);
             builder.Entity<SignInData>().HasKey(m => m.Password);
-            builder.Entity<SignInData>().HasKey(m => m.Email);
- 
-            // shadow properties
-            builder.Entity<DataEventRecord>().Property<DateTime>("UpdatedTimestamp");
-            builder.Entity<SourceInfo>().Property<DateTime>("UpdatedTimestamp");
  
             base.OnModelCreating(builder);
         }
@@ -50,10 +35,7 @@ namespace KriptoFeet.DB
         public override int SaveChanges()
         {
             ChangeTracker.DetectChanges();
- 
-            updateUpdatedProperty<SourceInfo>();
-            updateUpdatedProperty<DataEventRecord>();
- 
+
             return base.SaveChanges();
         }
  

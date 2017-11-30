@@ -7,12 +7,15 @@ namespace KriptoFeet.Comments.Models
 {
     public class Comment
     {
-        public Comment(string body, AuthorInfo author, DateTime date)
+        public Comment(long id, string body, AuthorInfo author, DateTime date)
         {
+            Id = id;
             Body =body;
             Author = author;
             Date = date;
         }
+
+        public long Id { get; set; }
         public string Body { get; set; }
         public AuthorInfo Author { get; set; }
 

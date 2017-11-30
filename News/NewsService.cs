@@ -13,6 +13,7 @@ using KriptoFeet.Categories.DB;
 using KriptoFeet.Categories.Models;
 using KriptoFeet.Users;
 using KriptoFeet.Users.Models;
+using System.Threading.Tasks;
 
 namespace KriptoFeet.News
 {
@@ -40,13 +41,23 @@ namespace KriptoFeet.News
             _usersService = usersService;
         }
 
-        public NewsInfo GetNews(long id)
+        public async Task<NewsInfo> GetNews(long id)
         {
             NewsDB news = _newsProvider.GetNewsDB(id);
-            List<Comment> comments = _commentsService.GetCommenstsByNewsId(id);
+            return await ToNewsInfo(news);
+        }
+
+        public async Task<NewsInfo[]> GetNewsByAuthor(string id)
+        {
+            return await Task.WhenAll(_newsProvider.GetNewsDBByAuthor(id).Select(async n => await ToNewsInfo(n)));
+        }
+
+        private async Task<NewsInfo> ToNewsInfo(NewsDB news)
+        {
+            var comments = (await _commentsService.GetCommenstsByNewsId(news.Id)).OrderBy(c => c.Date);
             CategoryDB category = _categoriesProvider.GetCategory(news.CategotyId);
-            AuthorInfo author = _usersService.GetAuthor(news.AuthorId);
-            return new NewsInfo(news.Id, category, author, comments, news.Date, news.Title, news.Body);
+            AuthorInfo author = await _usersService.GetAuthor(news.AuthorId);
+            return new NewsInfo(news.Id, category, author, comments.ToList(), news.Date, news.Title, news.Body);
         }
     }
 }

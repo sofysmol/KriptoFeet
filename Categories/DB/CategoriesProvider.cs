@@ -25,7 +25,8 @@ namespace KriptoFeet.Categories.DB
         }
         public void UpdateCategory(long categoryId, CategoryDB category)
         {
-            _context.Categories.Update(category);
+            var category1 =_context.Categories.Find(categoryId);
+            category1.Name = category.Name;
             _context.SaveChanges();
         }
         public void DeleteCategory(long categoryId)

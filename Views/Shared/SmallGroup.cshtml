@@ -1,15 +1,17 @@
+@model KriptoFeet.Categories.Models.CategoryDB
 <div class="small-group">
     <div class = "row">
             <div class="panel-body col-sm-9">
-                    <p>Название группы</p>
+                    <p>@Model.Name</p>
             </div>
             <div class ="panel-body col-sm-3 center-justified_trash">
-                <button type="button"  class="btn btn-primary btn-md  " >
-                   <span class="glyphicon glyphicon-edit icon_color " aria-hidden="true "></span> 
-                </button>
-                <button type="button"  class="btn btn-primary btn-md  " >
-                   <span class="glyphicon glyphicon-trash icon_color " aria-hidden="true "></span> 
-                </button>                 
+                <a asp-area="" asp-controller="Admin" asp-action="EditGroup" asp-route-id=@Model.Id class="btn btn-primary btn-md">
+                    <span class="glyphicon glyphicon-edit icon_color " aria-hidden="true "></span> 
+                </a>
+
+                <a asp-area="" asp-controller="Admin" asp-action="DeleteGroup" asp-route-id=@Model.Id class="btn btn-primary btn-md">
+                    <span class="glyphicon glyphicon-trash icon_color " aria-hidden="true "></span> 
+                </a>              
             </div>
         </div>
 

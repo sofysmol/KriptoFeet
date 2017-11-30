@@ -1,9 +1,11 @@
 using KriptoFeet.Users.Models;
+using System.Threading.Tasks;
 namespace KriptoFeet.Users
 {
     public interface IProfileService
     {
-        UserProfile GetProfile();
-        UserProfile GetContentManagerProfile();
+        Task<UserProfile> GetProfile(string id);
+        Task<UserProfile> GetContentManagerProfile(string id);
+        Task<UserProfile> GetAdminProfile(string id);
     }
 }

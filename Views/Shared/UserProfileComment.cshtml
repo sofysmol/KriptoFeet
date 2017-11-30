@@ -16,10 +16,10 @@
                                     </div>                                
                                     <p>@Model.Body</p>
                                 </div>
-                                <div class ="panel-body col-sm-3 center-justified_trash">
-                                    <button type="button"  class="btn btn-primary btn-md  " >
-                                            <span class="glyphicon glyphicon-trash icon_color " aria-hidden="true "></span> 
-                                    </button>                  
+                                <div class ="panel-body col-sm-2 center-justified_trash">
+                                    <a asp-area="" class="btn btn-primary btn-md" asp-controller="User" asp-action="DeleteComment" asp-route-id=@Model.Id class="a-single-news" >
+                                        <span class="glyphicon glyphicon-trash icon_color " aria-hidden="true "></span> 
+                                    </a>
                                 </div>
                             </div>
                         </div> 
