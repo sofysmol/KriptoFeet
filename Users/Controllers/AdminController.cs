@@ -19,6 +19,7 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using KriptoFeet.Utils;
+using KriptoFeet.Users.DB;
 
 namespace KriptoFeet.Users.Controllers
 {
@@ -38,6 +39,8 @@ namespace KriptoFeet.Users.Controllers
 
         private readonly ILongRandomGenerator _rand;
 
+        private readonly IContentManagerRequestProvider _requestProveder;
+
         public AdminController(INewsProvider newsProvider,
                               ICategoriesProvider categoriesProvider,
                               INewsService newsService,
@@ -45,7 +48,8 @@ namespace KriptoFeet.Users.Controllers
                               IProfileService profileService,
                               UserManager<Account> userManager,
                               SignInManager<Account> signInManager,
-                              ILongRandomGenerator rand)
+                              ILongRandomGenerator rand,
+                              IContentManagerRequestProvider requestProveder)
         {
             _newsProvider = newsProvider;
             _categoriesProvider = categoriesProvider;
@@ -55,6 +59,7 @@ namespace KriptoFeet.Users.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _rand = rand;
+            _requestProveder = requestProveder;
         }
 
         public ActionResult CreateGroup()
@@ -72,7 +77,6 @@ namespace KriptoFeet.Users.Controllers
             return RedirectToAction("AdminProfile", "Admin");
         }
 
-       // [ValidateAntiForgeryToken]
         public ActionResult EditGroup(long id)
         {
             Before();
@@ -96,7 +100,44 @@ namespace KriptoFeet.Users.Controllers
             return RedirectToAction("AdminProfile", "Admin");
         }
 
+        public async Task<IActionResult> ApproveContentManagerRequest(string id)
+        {
+            Before();
+            var request = _requestProveder.GetRequest(id);
+            if(request != null)
+            {
+                _requestProveder.DeleteRequest(id);
+                var user = await _userManager.FindByIdAsync(id);
+                if(user != null)
+                {
+                var roles = await _userManager.GetRolesAsync(user);
+                if(roles.Contains("User"))
+                    await _userManager.AddToRoleAsync(user, "ContentManager");
+                }
+            }
 
+            return RedirectToAction("AdminProfile", "Admin");
+        }
+
+        public async Task<IActionResult> DeleteContentManager(string id)
+        {
+            Before();
+            var user = await _userManager.FindByIdAsync(id);
+            if(user != null)
+            {
+                var roles = await _userManager.GetRolesAsync(user);
+                if(roles.Contains("ContentManager"))
+                    await _userManager.RemoveFromRoleAsync(user, "ContentManager");
+            }
+            return RedirectToAction("AdminProfile", "Admin");
+        }
+
+        public IActionResult DeleteRequest(string id)
+        {
+            Before();
+            _requestProveder.DeleteRequest(id);
+            return RedirectToAction("AdminProfile", "Admin");
+        }
 
         public async Task<IActionResult> AdminProfile()
         {

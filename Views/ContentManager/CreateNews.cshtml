@@ -7,7 +7,8 @@
         <div class="col-md-12" >    
             <div class="containerNewForCreateNews">
                     <br>
-                        <form class="form-horizontal" asp-controller="ContentManager" asp-action="CreateNews" method="post">
+                        <form class="form-horizontal" asp-controller="ContentManager" asp-action="CreateNews" method="post" enctype="multipart/form-data">
+                           @Html.AntiForgeryToken()
                             <div class="form-group"  >
                                 <label asp-for="Title" class="control-label col-sm-3" >Заголовок новости</label>
                                 <div class="col-sm-4">
@@ -32,9 +33,10 @@
                                 <label class="control-label col-sm-3" >Изображение</label>
                                 <div class="col-sm-4">
                                     <div class="but_top">
-                                        <button type="button" class="btn btn-primary btn-md ">
-                                            Обзор...
-                                        </button>
+                                        <div class="fileUpload btn btn-primary btn-md">
+                                                Обзор...
+                                            <input type="file"  asp-for="Picture" type="file" class="upload" />
+                                        </div>
                                     </div>
                                 </div>
                             </div>

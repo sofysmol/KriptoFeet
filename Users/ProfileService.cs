@@ -6,6 +6,7 @@ using Microsoft.Extensions.Logging;
 using System.Linq;
 using KriptoFeet.Comments.DB;
 using KriptoFeet.News.DB;
+using KriptoFeet.Users.DB;
 using KriptoFeet.News;
 using System;
 using MoreLinq;
@@ -29,16 +30,21 @@ namespace KriptoFeet.Users
 
         private readonly ICategoriesProvider _categoriesProvider;
         private readonly INewsService _newsService;
+
+        private readonly IContentManagerRequestProvider _requestProvider;
+
         public ProfileService(UserManager<Account> userManager,
                             INewsService newsService,
                             ICommentsService commentsService,
                             ICategoriesProvider categoriesProvider,
+                            IContentManagerRequestProvider requestProvider,
                             ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _commentsService = commentsService;
             _newsService = newsService;
             _categoriesProvider = categoriesProvider;
+            _requestProvider = requestProvider;
             _logger = loggerFactory.CreateLogger("NewsService");
         }
         public async Task<UserProfile> GetProfile(string id)
@@ -48,8 +54,8 @@ namespace KriptoFeet.Users
             {
                 return NotFound();
             }*/
-            return new UserProfile(user.UserName, user.Email, await _commentsService.GetCommentsByAuthorId(user.Id));   
-
+            var request = _requestProvider.GetRequest(id);
+            return new UserProfile(user.UserName, user.Email, await _commentsService.GetCommentsByAuthorId(user.Id), request != null,  user.AvatarId);   
         }
         public async Task<UserProfile> GetContentManagerProfile(string id)
         {
@@ -62,8 +68,11 @@ namespace KriptoFeet.Users
         {
             UserProfile profile = await GetContentManagerProfile(id);
              profile.Categories = _categoriesProvider.GetCategories();
-             profile.ContentManagers = new List<string>();//_userManager.Users.Select(u => u.LastName + u.FirstName).ToList();
-             profile.ContentManagersRequests = new List<string>();//_userManager.Users.Select(u => u.LastName + u.FirstName).ToList();
+             profile.ContentManagers = (await _userManager.GetUsersInRoleAsync("ContentManager"))
+                .Select(u => new ContentManager{Id = u.Id, FirstName = u.FirstName, LastName = u.LastName}).ToList();
+             profile.ContentManagersRequests = (await Task.WhenAll(_requestProvider.GetList()
+                .Select(async request => await _userManager.FindByIdAsync(request.Id))))
+                .Select(u => new ContentManager{Id = u.Id, FirstName = u.FirstName, LastName = u.LastName}).ToList();
              return profile;
         }
     }

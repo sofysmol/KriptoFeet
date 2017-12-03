@@ -20,14 +20,13 @@ namespace KriptoFeet.DB
         public DbSet<CategoryDB> Categories { get; set; }
         
         public DbSet<NewsDB> News {get; set;}
+        public DbSet<ContentManagerRequest> ContentManagerRequests {get; set;}
  
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<UserDB>().HasKey(m => m.Id);
             builder.Entity<NewsDB>().HasKey(m => m.Id);
             builder.Entity<CommentDB>().HasKey(m => m.Id);
             builder.Entity<CategoryDB>().HasKey(m => m.Id);
-            builder.Entity<SignInData>().HasKey(m => m.Password);
  
             base.OnModelCreating(builder);
         }

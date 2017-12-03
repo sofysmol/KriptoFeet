@@ -2,6 +2,7 @@
 <div class="panel">
                 <div class="panel-body_1">
                     <form class="form-horizontal" asp-controller="User" asp-action="AddComment" method="post">
+                    @Html.AntiForgeryToken()
                     <input type="hidden" asp-for="Id" value="@Model.Id"/>
                     <textarea  asp-for="Comment" value="@Model.Comment" class="form-control" rows="4" placeholder="Добавьте Ваш комментарий"></textarea>
                     <div class="mar-top clearfix">

@@ -1,12 +1,13 @@
 @using KriptoFeet.News.Models
+@using System
 @model KriptoFeet.News.Models.NewsDB
 <div class="small-news">
                 <a asp-area="" asp-controller="Home" asp-action="News" asp-route-id=@Model.Id style="color:black">@Model.Title</a>
                  <div class="row">
                     <div class="span4">
-                        <img style="float:left; margin-left:15px" src="~/images/small-news.jpg"  alt="News">
+                        <img style="float:left; margin-left:15px" width="100" height="100" src="/Images/News/@Model.Id"  alt="News">
                         <dev class="date-content">@Model.Date</dev>
-                        <p class="small-news-content">@Model.Body</p>
+                        <p class="small-news-content">@(Model.Body == null ? "" : Model.Body.Substring(0, Math.Min(Model.Body.Length, 120)))...</p>
                         <div style="clear:both"></div>
                     </div>
                 </div>

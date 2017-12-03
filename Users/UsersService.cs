@@ -11,23 +11,29 @@ using KriptoFeet.Utils;
 using KriptoFeet.Comments;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using System.IO;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 
 namespace KriptoFeet.Users
 {
-    
+
     public class UsersService : IUsersService
     {
+        private IHostingEnvironment _hostingEnvironment;
         private readonly ILongRandomGenerator rand;
         private readonly ILogger _logger;
 
         private readonly UserManager<Account> _userManager;
         public UsersService(UserManager<Account> userManager,
                             ILongRandomGenerator randomGenerator,
+                            IHostingEnvironment hostingEnvironment,
                             ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _logger = loggerFactory.CreateLogger("NewsService");
-             rand = randomGenerator;
+            _hostingEnvironment = hostingEnvironment;
+            rand = randomGenerator;
         }
 
         public async Task<AuthorInfo> GetAuthor(string id)
@@ -37,7 +43,7 @@ namespace KriptoFeet.Users
             {
                 return NotFound();
             }*/
-            return new AuthorInfo(id, user.UserName);
+            return new AuthorInfo(id, user.UserName, user.AvatarId);
         }
 
         /*public void CreateUser(User user)
@@ -53,7 +59,7 @@ namespace KriptoFeet.Users
 
         public async Task<bool> UpdateUserSettings(Account user, UserSettings settings)
         {
-            if(user!=null)
+            if (user != null)
             {
                 user.Birthday = settings.Birthday;
                 user.Email = settings.Email;
@@ -61,6 +67,14 @@ namespace KriptoFeet.Users
                 user.LastName = settings.LastName;
                 user.UserName = settings.Nickname;
                 var result = await _userManager.UpdateAsync(user);
+                var path = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "images", "avatars", user.AvatarId.ToString());
+                if (settings.AvatarImage != null && settings.AvatarImage.Length > 0)
+                {
+                    using (var stream = new FileStream(path, FileMode.OpenOrCreate))
+                    {
+                        await settings.AvatarImage.CopyToAsync(stream);
+                    }
+                }
                 return result.Succeeded;
             }
             return false;
@@ -74,7 +88,7 @@ namespace KriptoFeet.Users
             {
                 return NotFound();
             }*/
-            return new UserSettings(user.FirstName, user.LastName, user.Birthday, user.UserName, user.Email);
+            return new UserSettings(user.FirstName, user.LastName, user.Birthday, user.UserName, user.Email, null, user.AvatarId);
         }
     }
 }

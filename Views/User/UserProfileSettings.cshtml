@@ -3,26 +3,27 @@
 @{
     ViewData["Title"] = "UserProfileSettings";
 }
-
     <div class="row">
+<form asp-controller="User" asp-action="UserProfileSettings" method="post" class="form-horizontal" enctype="multipart/form-data">        
+        @Html.AntiForgeryToken()
         <div class="col-md-12">    
             <div class="containerNew">
             <div class="row">
                 <div class="col-xs-12 col-sm-3 " >
                     <figure >
-                        <img class="profImag img-fluid img-circle"  src="~/images/UserPhoto.png"  alt="Photo" img align="middle" >
+                        <img class="profImag img-fluid img-circle"  src="/Images/Avatar/@Model.AvatarId"  alt="Photo" img align="middle" >
                         <figcaption class="ratings">
                             <div class="center-justified">
-                                <button type="button" class="btn btn-primary btn-sm ">
+                                <div class="fileUpload btn btn-primary btn-sm">
                                     <span class="glyphicon glyphicon-open icon_color " style="vertical-align:middle" aria-hidden="true "></span> Загрузить новое <br> изображение
-                                </button>
+                                    <input type="file"  asp-for="AvatarImage" type="file" class="upload" />
+                                </div>
                             </div>
                         </figcaption>
                     </figure>  
                 </div>
                 <div class="col-xs-12 col-sm-4">
                     <br>
-                    <form asp-controller="User" asp-action="UserProfileSettings" method="post" class="form-horizontal">
                     <div class="form-group">
                         <p>Имя </p>
                         <div class="col-sm-10">
@@ -55,8 +56,6 @@
                             <span class="validation-error" asp-validation-for="Birthday" />
                         </div>
                     </div>
-                    <br>
-                    <br>
                     <div class="form-group">
                         <p>  Email</p>
                         <div class="col-sm-10">
@@ -65,18 +64,18 @@
                         </div>
                     </div>
                     <br>
-                    <br>
                     <div class="but_top">
                         <button type="submit" class="btn btn-primary btn-md ">
                         Сохранить изменения
                         </button>
                     </div>
                     <span class="validation-error" asp-validation-summary="All"></span>
-                    </form>
+                    
                 </div>
                 </div>
             </div>
         </div>
+        </form>
  
         <div class="col-md-8">
             <h4 class="header-with-line">Настройки аккаунта</h4>    

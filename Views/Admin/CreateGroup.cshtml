@@ -8,6 +8,7 @@
 </div>
 <div class="container col-md-4 col-md-offset-4">
 <form asp-controller="Admin" asp-action="CreateGroup" method="post" class="form-horizontal"> 
+    @Html.AntiForgeryToken()
     <div class="sing-in-form">
         <div class="form-group">
             <label asp-for="Name">Название группы:</label>

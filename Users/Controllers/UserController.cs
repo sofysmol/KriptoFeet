@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using KriptoFeet.Categories.DB;
 using KriptoFeet.Categories.Models;
@@ -21,6 +20,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authorization;
 using KriptoFeet.Utils;
+using System.Threading.Tasks;
+using KriptoFeet.Users.DB;
 
 namespace KriptoFeet.Users.Controllers
 {
@@ -41,6 +42,8 @@ namespace KriptoFeet.Users.Controllers
 
         private readonly ILongRandomGenerator _rand;
 
+        private readonly IContentManagerRequestProvider _contentManagerRequestProvider;
+
         public UserController(INewsProvider newsProvider,
                               ICategoriesProvider categoriesProvider,
                               INewsService newsService,
@@ -49,6 +52,7 @@ namespace KriptoFeet.Users.Controllers
                               UserManager<Account> userManager,
                               SignInManager<Account> signInManager,
                               ICommentsService commentService,
+                              IContentManagerRequestProvider contentManagerRequestProvider,
                               ILongRandomGenerator rand)
         {
             _newsProvider = newsProvider;
@@ -60,9 +64,11 @@ namespace KriptoFeet.Users.Controllers
             _signInManager = signInManager;
             _commentService = commentService;
             _rand = rand;
+            _contentManagerRequestProvider = contentManagerRequestProvider;
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<ActionResult> ChangePassword(PasswordChangingRequest model)
         {
             var user = await _userManager.GetUserAsync(HttpContext.User);
@@ -103,7 +109,6 @@ namespace KriptoFeet.Users.Controllers
 
             return View(model);
         }
-
         public async Task<IActionResult> UserProfile()
         {
             Before();
@@ -112,6 +117,8 @@ namespace KriptoFeet.Users.Controllers
             var roles = await _userManager.GetRolesAsync(user);
             if(roles.Contains("Admin"))
                 return RedirectToAction("AdminProfile", "Admin");
+            else if(roles.Contains("ContentManager"))
+                return RedirectToAction("ContentManagerProfile", "ContentManager");
             return View(await _profileService.GetProfile(user.Id));
         }
 
@@ -126,11 +133,12 @@ namespace KriptoFeet.Users.Controllers
             }
             catch (Exception e)
             {
-                return View(new UserSettings(null, null, new DateTime(), null, null));
+                return View(new UserSettings(null, null, new DateTime(), null, null, null, user.AvatarId));
             }
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> UserProfileSettings(UserSettings settings)
         {
             Before();
@@ -141,15 +149,16 @@ namespace KriptoFeet.Users.Controllers
                 var result = await _userService.UpdateUserSettings(user, settings);
                 if (result)
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("UserProfile", "User");
                 } else {
                     ModelState.AddModelError(string.Empty, "Не удалось обновить данные");
                     return View(settings);
                 }
             }
-            else return View(new UserSettings(null, null, new DateTime(), null, null));
+            else return View(new UserSettings(null, null, new DateTime(), null, null, null, user.AvatarId));
         }
 
+        [ValidateAntiForgeryToken]
         public async Task<IActionResult> AddComment(long id, string comment)
         {
             Before();
@@ -176,6 +185,34 @@ namespace KriptoFeet.Users.Controllers
                 _commentService.DeleteComment(id, user.Id);
                 return RedirectToAction("UserProfile", "User");
             }
+        }
+
+        public async Task<IActionResult> RequestForContentManager()
+        {
+            var user  = await _userManager.GetUserAsync(HttpContext.User);
+            var roles = await _userManager.GetRolesAsync(user);
+            if(roles.Contains("User"))
+            {
+                var request = _contentManagerRequestProvider.GetRequest(user.Id);
+                if(request == null)
+                    _contentManagerRequestProvider.AddRequest(new ContentManagerRequest{Id = user.Id});
+            }
+            return RedirectToAction("UserProfile", "User");
+
+        }
+
+        public async Task<IActionResult> DeleteRequestForContentManager()
+        {
+            var user  = await _userManager.GetUserAsync(HttpContext.User);
+            var roles = await _userManager.GetRolesAsync(user);
+            if(roles.Contains("User"))
+            {
+                var request = _contentManagerRequestProvider.GetRequest(user.Id);
+                if(request == null)
+                    _contentManagerRequestProvider.DeleteRequest(user.Id);
+            }
+            return RedirectToAction("UserProfile", "User");
+
         }
         
         private void Before()

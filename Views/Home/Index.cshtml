@@ -6,9 +6,9 @@
 
     <div class="row">
         <div class="col-md-8">
-            <img src="~/images/last-news3.png" class="img-fluid" alt="Last news">
+            <img src="/Images/News/@ViewBag.LastNews.Id" class="img-fluid" alt="Last news">
             <h4 class="header-with-line">@ViewBag.LastNews.Title</h4>
-            <p class="last-news-text" height="100px">@ViewBag.LastNews.Body</p>
+            <p class="last-news-text" height="100px">@(ViewBag.LastNews.Body == null ? "" : ViewBag.LastNews.Body.Substring(0, Math.Min(ViewBag.LastNews.Body.Length, 300)))...</p>
         </div>
         <div class="col-md-4">
             @Html.Partial("AboutPortal")
@@ -19,7 +19,7 @@
         @foreach(var c in Model)
         {
          <div class="col-lg-6">
-             <h4 class="header-with-line"><a href="#" class="a-header" >@c.Name</a></h4>
+             <h4 class="header-with-line"><a asp-area="" asp-controller="Home" asp-action="Сategory" asp-route-id=@c.Id class="a-header" >@c.Name</a></h4>
              @Html.Partial("SmallNews", c.PopularNews)
         </div>
         }

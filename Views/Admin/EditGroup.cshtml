@@ -8,6 +8,7 @@
 </div>
 <div class="container col-md-4 col-md-offset-4">
 <form asp-controller="Admin" asp-action="EditGroup" method="post" class="form-horizontal"> 
+    @Html.AntiForgeryToken()
     <input type="hidden" class="form-control" asp-for="Id">
     <div class="sing-in-form">
         <div class="form-group">

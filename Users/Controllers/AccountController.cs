@@ -74,11 +74,20 @@ namespace KriptoFeet.Users.Controllers
             }
             if (ModelState.IsValid)
             {
-                Account user = new Account { UserName = model.Nickname, Email = model.Email, FirstName = model.FirstName, LastName = model.LastName, Birthday=model.Birthday};
+                Account user = new Account
+                {
+                    UserName = model.Nickname,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Birthday = model.Birthday,
+                    AvatarId = _rand.Next()
+                };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
                     // установка куки
+                    await _userManager.AddToRoleAsync(user, "User");
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("Index", "Home");
                 }
@@ -111,7 +120,7 @@ namespace KriptoFeet.Users.Controllers
         public ActionResult SignIn(string returnUrl = null)
         {
             Before();
-            return View(new SignInData{ReturnUrl = returnUrl});
+            return View(new SignInData { ReturnUrl = returnUrl });
         }
 
         [HttpPost]
@@ -135,10 +144,10 @@ namespace KriptoFeet.Users.Controllers
                     }
                 }
                 else
-                    {
-                        ModelState.AddModelError("", "Неправильный логин и (или) пароль");
-                    }
+                {
+                    ModelState.AddModelError("", "Неправильный логин и (или) пароль");
                 }
+            }
             return View(model);
         }
 

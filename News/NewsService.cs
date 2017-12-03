@@ -54,10 +54,12 @@ namespace KriptoFeet.News
 
         private async Task<NewsInfo> ToNewsInfo(NewsDB news)
         {
-            var comments = (await _commentsService.GetCommenstsByNewsId(news.Id)).OrderBy(c => c.Date);
+            var comments = await _commentsService.GetCommenstsByNewsId(news.Id);
+            var commentsList = new List<Comment>();
+            if(comments != null) commentsList = comments.OrderBy(c => c.Date).ToList();
             CategoryDB category = _categoriesProvider.GetCategory(news.CategotyId);
             AuthorInfo author = await _usersService.GetAuthor(news.AuthorId);
-            return new NewsInfo(news.Id, category, author, comments.ToList(), news.Date, news.Title, news.Body);
+            return new NewsInfo(news.Id, category, author, commentsList, news.Date, news.Title, news.Body);
         }
     }
 }

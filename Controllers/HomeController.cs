@@ -60,7 +60,7 @@ namespace KriptoFeet.Controllers
         {
             Before();
             List<Category> categories = _categoriesProvider.GetCategories().Select(c =>
-            new Category(c.Name, _newsProvider.GetPopularNewsForCategory(c.Id))).ToList();
+            new Category(c.Id, c.Name, _newsProvider.GetPopularNewsForCategory(c.Id))).ToList();
 
             ViewBag.LastNews = _newsProvider.GetLastNews();
             return View(categories);

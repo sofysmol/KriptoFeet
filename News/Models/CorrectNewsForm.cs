@@ -6,11 +6,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+
 namespace KriptoFeet.News.Models
 {
     public class CorrectNewsForm
     {
-        public CorrectNewsForm(long id, string title, string body, long categoryId, DateTime date, List<Comment> comments)
+        public CorrectNewsForm(long id, string title, string body, long categoryId, DateTime date, List<Comment> comments, IFormFile picture)
         {
             Id = id;
             Title = title;
@@ -18,6 +21,7 @@ namespace KriptoFeet.News.Models
             CategoryId = categoryId;
             Date = date;
             Comments = comments;
+            Picture = picture;
         }
 
         public CorrectNewsForm()
@@ -39,6 +43,8 @@ namespace KriptoFeet.News.Models
 
         [Required (ErrorMessage = "Поле должно быть заполнено")]
         [Display(Name = "Новостная группа")]
+
+        public IFormFile Picture {get; set;}
         public long CategoryId  {get; set;}
         public List<Comment> Comments {get; set;}
     }

@@ -1,6 +1,6 @@
 <div class="about-portal">
         <h4 class="header-with-line">О портале</h4>
-        <p class="portal-text" height="100px">Описание портала</p>
+        <p class="portal-text" height="100px">Основная цель KriptoFeet -- рассказать всякие новости и дать возможность написать свои. </p>
         @if(User.Identity.IsAuthenticated)
         {
             
@@ -8,6 +8,7 @@
             <p>@User.Identity.Name</p>
             <a asp-area="" asp-controller="User" asp-action="UserProfile" class="btn btn-primary btn-login">Учетная запись</a>
             <form class="btn-logoff" method="post" asp-controller="Account" asp-action="LogOff">
+                @Html.AntiForgeryToken()
                 <input class="btn btn-primary" type="submit" value="Выход" />
             </form>
             </div>

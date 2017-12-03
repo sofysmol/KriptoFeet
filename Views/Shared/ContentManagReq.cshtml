@@ -1,15 +1,16 @@
+@model KriptoFeet.Users.Models.ContentManager
 <div class="req-conten-manag">
     <div class = "row">
             <div class="panel-body col-sm-9">
-                    <p>@Model</p>
+                    <p>@Model.LastName @Model.FirstName</p>
             </div>
             <div class ="panel-body col-sm-3 center-justified_trash">
-                <button type="button"  class="btn btn-primary btn-md  " >
-                   <span class="glyphicon glyphicon-ok icon_color " aria-hidden="true "></span> 
-                </button>
-                <button type="button"  class="btn btn-primary btn-md  " >
-                   <span class="glyphicon glyphicon-remove icon_color " aria-hidden="true "></span> 
-                </button>                 
+                <a asp-area="" asp-controller="Admin" asp-action="ApproveContentManagerRequest" asp-route-id=@Model.Id style="color:black" class="btn btn-primary btn-md  ">
+                    <span class="glyphicon glyphicon-ok icon_color " aria-hidden="true "></span> 
+                </a> 
+                <a asp-area="" asp-controller="Admin" asp-action="DeleteRequest" asp-route-id=@Model.Id style="color:black" class="btn btn-primary btn-md  ">
+                    <span class="glyphicon glyphicon-remove icon_color " aria-hidden="true "></span> 
+                </a>                
             </div>
         </div>
 </div>

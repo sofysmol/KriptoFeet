@@ -14,6 +14,7 @@ using Microsoft.Extensions.Logging;
 using KriptoFeet.Comments.DB;
 using KriptoFeet.Categories.DB;
 using KriptoFeet.News.DB;
+using KriptoFeet.Users.DB;
 using KriptoFeet.News;
 using KriptoFeet.Comments;
 using KriptoFeet.Users;
@@ -60,7 +61,7 @@ namespace KriptoFeet
 
         // Lockout settings
         options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
-                options.Lockout.MaxFailedAccessAttempts = 10;
+                options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
 
         // User settings
@@ -74,7 +75,7 @@ namespace KriptoFeet
                 options.Cookie.Expiration = TimeSpan.FromDays(150);
                 options.LoginPath = "/Home/SignIn"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
         options.LogoutPath = "/Home/LogOff"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
-        options.AccessDeniedPath = "/Account/AccessDenied"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
+        options.AccessDeniedPath = "/Home/Error"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
         options.SlidingExpiration = true;
             });
             services.AddScoped<ICommentsProvider, CommentsProvider>();
@@ -84,6 +85,7 @@ namespace KriptoFeet
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IProfileService, ProfileService>();
             services.AddScoped<ICommentsService, CommentsService>();
+            services.AddScoped<IContentManagerRequestProvider, ContentManagerRequestsProvider>();
             services.AddSingleton<ILongRandomGenerator, LongRandomGenerator>();
 
             services.AddMvc().AddJsonOptions(options =>
@@ -128,7 +130,7 @@ namespace KriptoFeet
             //adding custom roles
             var RoleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var UserManager = serviceProvider.GetRequiredService<UserManager<Account>>();
-            string[] roleNames = { "Admin", "Manager", "Member" };
+            string[] roleNames = { "Admin", "ContentManager", "User" };
             IdentityResult roleResult;
             foreach (var roleName in roleNames)
             {

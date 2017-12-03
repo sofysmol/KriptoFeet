@@ -9,7 +9,7 @@
                 <div class="row">
                     <div class="col-xs-12 col-sm-3">
                         <figure>
-                        <img class="profImag img-fluid img-circle"  src="~/images/UserPhoto.png"  alt="Photo" img align="middle" >                    
+                        <img class="profImag img-fluid img-circle"  src="/Images/Avatar/@Model.AvatarId"  alt="Photo" img align="middle" >                    
                         </figure>
                     </div>
                     <div class="col-xs-12 col-sm-9">
@@ -31,9 +31,16 @@
                                         </a>
                                 </div>   
                                 <div class="pad_but_2">   
-                                    <a asp-area="" asp-controller="User" asp-action="" class="btn btn-primary btn-md">
-                                        <span class="glyphicon glyphicon-envelope icon_color"  style="vertical-align:middle" aria-hidden="true "></span> Подать заявку на роль<br> контент-менеджера
-                                    </a>
+                                    @if(!Model.IsContentManagerRequest)
+                                    {
+                                        <a asp-area="" asp-controller="User" asp-action="RequestForContentManager" class="btn btn-primary btn-md">
+                                            <span class="glyphicon glyphicon-envelope icon_color"  style="vertical-align:middle" aria-hidden="true "></span> Подать заявку на роль<br> контент-менеджера
+                                        </a>
+                                    } else {
+                                        <a asp-area="" asp-controller="User" asp-action="DeleteRequestForContentManager" class="btn btn-primary btn-md">
+                                            <span class="glyphicon glyphicon-envelope icon_color"  style="vertical-align:middle" aria-hidden="true "></span> Отменить заявку на роль<br> контент-менеджера
+                                        </a>
+                                    }
                                 </div>                              
                             </div>
                             <div  class="col-xs-12 col-sm-12 " >
