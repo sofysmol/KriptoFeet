@@ -45,38 +45,46 @@ namespace KriptoFeet
                 )
             );
 
+            services.AddAntiforgery(options =>
+            {
+                options.Cookie.Name = "X-CSRF-TOKEN-COOKIE";
+                options.FormFieldName = "TOCKEN_FIELD";
+                options.HeaderName = "X-CSRF-TOKEN-HEADER";
+            });
+
             services.AddIdentity<Account, IdentityRole>()
         .AddEntityFrameworkStores<DomainModelMySqlContext>()
         .AddDefaultTokenProviders();
 
+        services.ConfigureApplicationCookie(options => options.Cookie.Name = "AUTH-TOKEN");
             services.Configure<IdentityOptions>(options =>
             {
-        // Password settings
-        options.Password.RequireDigit = true;
+                // Password settings
+                options.Password.RequireDigit = true;
                 options.Password.RequiredLength = 8;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = true;
                 options.Password.RequireLowercase = false;
                 options.Password.RequiredUniqueChars = 6;
 
-        // Lockout settings
-        options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
+                // Lockout settings
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(30);
                 options.Lockout.MaxFailedAccessAttempts = 5;
                 options.Lockout.AllowedForNewUsers = true;
 
-        // User settings
-        options.User.RequireUniqueEmail = true;
+                // User settings
+                options.User.RequireUniqueEmail = true;
             });
 
             services.ConfigureApplicationCookie(options =>
             {
-        // Cookie settings
-        options.Cookie.HttpOnly = true;
+                // Cookie settings
+                options.Cookie.HttpOnly = true;
                 options.Cookie.Expiration = TimeSpan.FromDays(150);
                 options.LoginPath = "/Home/SignIn"; // If the LoginPath is not set here, ASP.NET Core will default to /Account/Login
-        options.LogoutPath = "/Home/LogOff"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
-        options.AccessDeniedPath = "/Home/Error"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
-        options.SlidingExpiration = true;
+                options.LogoutPath = "/Home/LogOff"; // If the LogoutPath is not set here, ASP.NET Core will default to /Account/Logout
+                options.AccessDeniedPath = "/Home/Error"; // If the AccessDeniedPath is not set here, ASP.NET Core will default to /Account/AccessDenied
+                options.SlidingExpiration = true;
             });
             services.AddScoped<ICommentsProvider, CommentsProvider>();
             services.AddScoped<ICategoriesProvider, CategoriesProvider>();
@@ -120,8 +128,8 @@ namespace KriptoFeet
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
-           bool createRoles = Configuration.GetValue<bool>("CreateRoles");
-            if(createRoles)
+            bool createRoles = Configuration.GetValue<bool>("CreateRoles");
+            if (createRoles)
                 CreateRoles(serviceProvider).Wait();
         }
 

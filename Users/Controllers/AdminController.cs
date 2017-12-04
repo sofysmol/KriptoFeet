@@ -96,6 +96,15 @@ namespace KriptoFeet.Users.Controllers
         public ActionResult DeleteGroup(long id)
         {
             Before();
+            var category = _categoriesProvider.GetCategory(id);
+            var news = _newsProvider.GetNewsDBByCategory(id);
+            if(news != null)
+            {
+                foreach(var n in news)
+                {
+                    _newsService.DeleteNews(n.Id);
+                }
+            }
             _categoriesProvider.DeleteCategory(id);
             return RedirectToAction("AdminProfile", "Admin");
         }

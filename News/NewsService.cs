@@ -14,6 +14,9 @@ using KriptoFeet.Categories.Models;
 using KriptoFeet.Users;
 using KriptoFeet.Users.Models;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using System.Drawing;
+using System.IO;
 
 namespace KriptoFeet.News
 {
@@ -60,6 +63,18 @@ namespace KriptoFeet.News
             CategoryDB category = _categoriesProvider.GetCategory(news.CategotyId);
             AuthorInfo author = await _usersService.GetAuthor(news.AuthorId);
             return new NewsInfo(news.Id, category, author, commentsList, news.Date, news.Title, news.Body);
+        }
+
+        public async Task DeleteNews(long id)
+        {
+            var comments = await _commentsService.GetCommenstsByNewsId(id);
+            if(comments != null)
+            {
+                foreach(var c in comments)
+                    _commentsService.DeleteComment(c.Id, c.Author.Id);
+            }
+            _newsProvider.DeleteNewsDB(id);
+
         }
     }
 }

@@ -8,5 +8,6 @@ namespace KriptoFeet.News
          Task<NewsInfo> GetNews(long id);
 
          Task<NewsInfo[]> GetNewsByAuthor(string id);
+         Task DeleteNews(long id);
     }
 }

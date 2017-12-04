@@ -79,7 +79,7 @@ namespace KriptoFeet.Users.Controllers
                 AuthorId = user.Id, CategotyId = news.CategoryId, Date = DateTime.Now};
             _newsProvider.AddNewsDB(newsDB);
             var path = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "images", "news", newsDB.Id.ToString());
-                if (news.Picture != null && news.Picture.Length > 0)
+                if (news.Picture != null && news.Picture.Length > 0 && ImageUtils.IsImage(news.Picture))
                 {
                     using (var stream = new FileStream(path, FileMode.OpenOrCreate))
                     {

@@ -14,6 +14,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using KriptoFeet.Utils;
 
 namespace KriptoFeet.Users
 {
@@ -68,7 +69,7 @@ namespace KriptoFeet.Users
                 user.UserName = settings.Nickname;
                 var result = await _userManager.UpdateAsync(user);
                 var path = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "images", "avatars", user.AvatarId.ToString());
-                if (settings.AvatarImage != null && settings.AvatarImage.Length > 0)
+                if (settings.AvatarImage != null && settings.AvatarImage.Length > 0 && ImageUtils.IsImage(settings.AvatarImage))
                 {
                     using (var stream = new FileStream(path, FileMode.OpenOrCreate))
                     {
