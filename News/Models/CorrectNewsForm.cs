@@ -41,9 +41,6 @@ namespace KriptoFeet.News.Models
         [Display(Name = "Текс")]
         public string Body  {get; set;}
 
-        [Required (ErrorMessage = "Поле должно быть заполнено")]
-        [Display(Name = "Новостная группа")]
-
         public IFormFile Picture {get; set;}
         public long CategoryId  {get; set;}
         public List<Comment> Comments {get; set;}

@@ -11,6 +11,7 @@ using System.IO;
 using Microsoft.AspNetCore.Identity;
 using KriptoFeet.Users.Models;
 using System;
+using Microsoft.Extensions.Configuration;
 
 namespace KriptoFeet.Controllers
 {
@@ -19,25 +20,28 @@ namespace KriptoFeet.Controllers
     {
         private IHostingEnvironment _hostingEnvironment;
         private readonly UserManager<Account> _userManager;
-        
+
+        private IConfiguration Configuration { get; }
 
         public ImagesController(IHostingEnvironment hostingEnvironment,
-                                UserManager<Account> userManager)
+                                UserManager<Account> userManager,
+                                IConfiguration configuration)
         {
             _hostingEnvironment = hostingEnvironment;
             _userManager = userManager;
+            Configuration = configuration;
         }
 
         [HttpGet("Avatar/{id}")]
         public async Task<IActionResult> Avatar(string id)
         {
             try {
-                var path = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "images", "avatars", id);
+                var path = Configuration.GetValue<String>("Path1") + id;
                 var avatar = System.IO.File.OpenRead(path); 
                 return File(avatar, "image/jpeg");
             } catch(Exception e)
             {
-                var path = Path.Combine(_hostingEnvironment.WebRootPath, "images", "UserPhoto.png");
+                var path = Configuration.GetValue<String>("Path1") + "UserPhoto.png";
                 var avatar = System.IO.File.OpenRead(path);
                 return File(avatar, "image/jpeg");
             }
@@ -47,12 +51,12 @@ namespace KriptoFeet.Controllers
         public async Task<IActionResult> News(string id)
         {
             try {
-                var path = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "images", "news", id);
+                var path = Configuration.GetValue<String>("Path1") + id;
                 var avatar = System.IO.File.OpenRead(path); 
                 return File(avatar, "image/jpeg");
             } catch(Exception e)
             {
-                var path = Path.Combine(_hostingEnvironment.WebRootPath, "images", "last-news3.png");
+                var path = Configuration.GetValue<String>("Path1") + "last-news3.png";
                 var image = System.IO.File.OpenRead(path);
                 return File(image, "image/png");
             }

@@ -21,6 +21,7 @@ using Microsoft.AspNetCore.Authorization;
 using KriptoFeet.Utils;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using Microsoft.Extensions.Configuration;
 
 namespace KriptoFeet.Users.Controllers
 {
@@ -41,6 +42,8 @@ namespace KriptoFeet.Users.Controllers
         private readonly ILongRandomGenerator _rand;
         private IHostingEnvironment _hostingEnvironment;
 
+        private IConfiguration Configuration { get; }
+
         public ContentManagerController(INewsProvider newsProvider,
                               ICategoriesProvider categoriesProvider,
                               INewsService newsService,
@@ -49,7 +52,8 @@ namespace KriptoFeet.Users.Controllers
                               UserManager<Account> userManager,
                               SignInManager<Account> signInManager,
                               IHostingEnvironment hostingEnvironment,
-                              ILongRandomGenerator rand)
+                              ILongRandomGenerator rand,
+                              IConfiguration configuration)
         {
             _newsProvider = newsProvider;
             _categoriesProvider = categoriesProvider;
@@ -60,6 +64,7 @@ namespace KriptoFeet.Users.Controllers
             _signInManager = signInManager;
             _rand = rand;
             _hostingEnvironment = hostingEnvironment;
+            Configuration = configuration;
         }
 
         public ActionResult CreateNews()
@@ -78,7 +83,7 @@ namespace KriptoFeet.Users.Controllers
             var newsDB = new NewsDB{Id = _rand.Next(), Title = news.Title, Body = news.Body,
                 AuthorId = user.Id, CategotyId = news.CategoryId, Date = DateTime.Now};
             _newsProvider.AddNewsDB(newsDB);
-            var path = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "images", "news", newsDB.Id.ToString());
+            var path = Configuration.GetValue<String>("Path1") + newsDB.Id.ToString();
                 if (news.Picture != null && news.Picture.Length > 0 && ImageUtils.IsImage(news.Picture))
                 {
                     using (var stream = new FileStream(path, FileMode.OpenOrCreate))
@@ -111,7 +116,7 @@ namespace KriptoFeet.Users.Controllers
                 newsDB.CategotyId = news.CategoryId;
                 newsDB.Body = news.Body;
                 newsDB.Date = DateTime.Now;
-                var path = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "images", "news", news.Id.ToString());
+                var path = Configuration.GetValue<String>("Path1") + news.Id.ToString();
                 if (news.Picture != null && news.Picture.Length > 0)
                 {
                     using (var stream = new FileStream(path, FileMode.OpenOrCreate))

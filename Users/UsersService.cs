@@ -15,6 +15,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
 using KriptoFeet.Utils;
+using Microsoft.Extensions.Configuration;
 
 namespace KriptoFeet.Users
 {
@@ -26,15 +27,18 @@ namespace KriptoFeet.Users
         private readonly ILogger _logger;
 
         private readonly UserManager<Account> _userManager;
+        private IConfiguration Configuration { get; }
         public UsersService(UserManager<Account> userManager,
                             ILongRandomGenerator randomGenerator,
                             IHostingEnvironment hostingEnvironment,
-                            ILoggerFactory loggerFactory)
+                            ILoggerFactory loggerFactory,
+                            IConfiguration configuration)
         {
             _userManager = userManager;
             _logger = loggerFactory.CreateLogger("NewsService");
             _hostingEnvironment = hostingEnvironment;
             rand = randomGenerator;
+            Configuration = configuration;
         }
 
         public async Task<AuthorInfo> GetAuthor(string id)
@@ -68,7 +72,7 @@ namespace KriptoFeet.Users
                 user.LastName = settings.LastName;
                 user.UserName = settings.Nickname;
                 var result = await _userManager.UpdateAsync(user);
-                var path = Path.Combine(_hostingEnvironment.WebRootPath, "uploads", "images", "avatars", user.AvatarId.ToString());
+                var path = Configuration.GetValue<String>("Path1") + user.AvatarId.ToString();
                 if (settings.AvatarImage != null && settings.AvatarImage.Length > 0 && ImageUtils.IsImage(settings.AvatarImage))
                 {
                     using (var stream = new FileStream(path, FileMode.OpenOrCreate))
